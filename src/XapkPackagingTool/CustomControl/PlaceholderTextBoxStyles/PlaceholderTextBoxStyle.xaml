@@ -1,4 +1,6 @@
-﻿<ResourceDictionary
+﻿<!--  Copyright (c) 2024 Metin Altıkardeş. Licensed under the MIT License. See the LICENSE.  -->
+
+<ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:customcontrol="clr-namespace:XapkPackagingTool.CustomControl"

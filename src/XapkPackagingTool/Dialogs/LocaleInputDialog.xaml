@@ -1,4 +1,6 @@
-﻿<hc:Window
+﻿<!--  Copyright (c) 2024 Metin Altıkardeş. Licensed under the MIT License. See the LICENSE.  -->
+
+<hc:Window
     x:Class="XapkPackagingTool.Dialogs.LocaleInputDialog"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
