@@ -1,0 +1,19 @@
+﻿
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <SolidColorBrush x:Key="PrimaryControlBackground">#005fb8</SolidColorBrush>
+    <SolidColorBrush x:Key="PrimaryControlForeground">#ffffff</SolidColorBrush>
+    <SolidColorBrush x:Key="SecondaryControlBackground">#FEFFFF</SolidColorBrush>
+    <SolidColorBrush x:Key="SecondaryControlForeground">#212121</SolidColorBrush>
+    <SolidColorBrush x:Key="DefaultControlBackground">#FEFFFF</SolidColorBrush>
+    <SolidColorBrush x:Key="ContentBackground">#FDFEFF</SolidColorBrush>
+    <SolidColorBrush x:Key="SideMenuBackground">#FFE6F3FE</SolidColorBrush>
+    <SolidColorBrush x:Key="SideMenuSelectedBackground">#D5F3E5</SolidColorBrush>
+    <SolidColorBrush x:Key="SideMenuSelectedAccent">#D5F3E5</SolidColorBrush>
+    <SolidColorBrush x:Key="MiddleAreaColor">#E4EEF3</SolidColorBrush>
+    <SolidColorBrush x:Key="DefaultBorderBrush">#E3E3E3</SolidColorBrush>
+    <SolidColorBrush x:Key="DialogBackground">#E3F1F3</SolidColorBrush>
+    <LinearGradientBrush x:Key="_defaultbackground" StartPoint="0.5,0" EndPoint="0.8,1">
+        <GradientStop Color="#f1faf1" />
+        <GradientStop Offset="1.2" Color="#E1EBF3" />
+    </LinearGradientBrush>
+</ResourceDictionary>

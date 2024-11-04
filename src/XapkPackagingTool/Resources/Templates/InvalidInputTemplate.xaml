@@ -1,0 +1,25 @@
+﻿
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <ControlTemplate x:Key="ErrorTemplate">
+        <DockPanel LastChildFill="True">
+            <Popup
+                AllowsTransparency="True"
+                IsOpen="True"
+                Placement="Bottom"
+                PlacementTarget="{Binding AdornedElement, ElementName=customAdorner}"
+                StaysOpen="False">
+                <Border
+                    Width="{Binding ActualWidth, ElementName=customAdorner}"
+                    Padding="5,10,5,10"
+                    Background="#FF0000"
+                    CornerRadius="4">
+                    <TextBlock
+                        Foreground="White"
+                        Text="{Binding ElementName=customAdorner, Path=AdornedElement.(Validation.Errors)[0].ErrorContent}"
+                        TextWrapping="Wrap" />
+                </Border>
+            </Popup>
+            <AdornedElementPlaceholder Name="customAdorner" VerticalAlignment="Center" />
+        </DockPanel>
+    </ControlTemplate>
+</ResourceDictionary>

@@ -1,0 +1,22 @@
+﻿{
+  "ProjectName": "",
+  "BuildPath": "",
+  "Manifest": {
+    "xapk_version": 1,
+    "name": "",
+    "package_name": "",
+    "version_code": "",
+    "version_name": "",
+    "icon": "",
+    "min_sdk_version": "",
+    "target_sdk_version": "",
+    "permissions": [],
+    "locales_name": {},
+    "split_apks": [],
+    "split_configs": [],
+    "expansions": [],
+    "total_size": 0
+  },
+  "VariantSpecies": 0,
+  "BaseApk": ""
+}

@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0-windows7.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Configurations>Debug;Release;Mix</Configurations>
+    <Platforms>AnyCPU;x64</Platforms>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Aapt2CommandApi\Aapt2CommandApi.csproj" />
+    <ProjectReference Include="..\XapkPackagingTool.Common\XapkPackagingTool.Common.csproj" />
+  </ItemGroup>
+
+</Project>

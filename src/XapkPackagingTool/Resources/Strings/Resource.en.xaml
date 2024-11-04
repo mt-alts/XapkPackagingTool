@@ -1,0 +1,217 @@
+﻿
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:system="clr-namespace:System;assembly=mscorlib">
+
+    <!--#region Code Behind-->
+    <!--  Access Denied  -->
+    <system:String x:Key="StrAccessDeniedMessage">You do not have permission to access {0}.</system:String>
+    <system:String x:Key="StrAccessDeniedTitle">Access Denied!</system:String>
+
+    <!--  Asset  -->
+    <system:String x:Key="StrAssetLoadFailed">The asset could not be loaded: {0}. Please reinstall the XAPK Packaging Tool to ensure it works correctly.</system:String>
+
+    <!--  APK  -->
+    <system:String x:Key="StrApk">apk</system:String>
+    <system:String x:Key="StrApkExt">.apk</system:String>
+    <system:String x:Key="StrSelectAPK">Select APK</system:String>
+    <system:String x:Key="StrApkExtDescription">APK Package</system:String>
+    <system:String x:Key="StrAppName">XAPK Packaging Tool</system:String>
+    
+    <!--  Dialog Filters  -->
+    <system:String x:Key="StrSelectApkFile">Select APK File</system:String>
+    <system:String x:Key="StrSelectPackageIcon">Select Package Icon</system:String>
+    <system:String x:Key="StrXapkConfigFileFilterDescription">XAPK Package Configuration File</system:String>
+    <system:String x:Key="PngFileFilterDescription">PNG Image</system:String>
+
+    <!--  Duplicate Item  -->
+    <system:String x:Key="StrDuplicateItemMessage">This item is already present in the list.</system:String>
+    <system:String x:Key="StrDuplicateItemTitle">Duplicate Item</system:String>
+
+    <!--  Error  -->
+    <system:String x:Key="StrError">Error</system:String>
+    <system:String x:Key="StrUnsupportedFileFormat">File format '{0}' is not supported.</system:String>
+    <system:String x:Key="StrExtNotSupported">The file extension '{0}' is not supported.</system:String>
+
+    <!--  File Not Found  -->
+    <system:String x:Key="StrFileNotFoundMessageTitle">File Not Found!</system:String>
+    <system:String x:Key="StrFileNotFoundMessage">The specified file could not be found: {0}.</system:String>
+    <system:String x:Key="StrBaseApkNotFound">APK file not found! Please add a full APK or a split base APK.</system:String>
+    <system:String x:Key="StrBaseSplitApkNotFound">Split base APK file (base.apk) not defined! Please add the split base APK.</system:String>
+
+    <!--  Import Conflict  -->
+    <system:String x:Key="StrImportConflictMessage">Some items you are trying to import already exist but have different data. Would you like to update existing items with the new data?</system:String>
+    <system:String x:Key="StrImportPackage">Import Package</system:String>
+
+    <!--  Import Error  -->
+    <system:String x:Key="StrImportErrorMessageTitle">Import Error</system:String>
+    <system:String x:Key="StrPackageImportErrorMessage">An error occurred while importing the package. File path: {0}</system:String>
+
+    <!--  No Items to Delete  -->
+    <system:String x:Key="StrNoItemsToDelete">No items to delete.</system:String>
+
+    <!--  Config File Error  -->
+    <system:String x:Key="StrConfigFileErrorMessageTitle">Config File Read Error</system:String>
+    <system:String x:Key="StrXapkConfigFileReadErrorMessage">Failed to read XAPK configuration file. File path: {0}</system:String>
+
+    <!--  Open Package  -->
+    <system:String x:Key="StrOpenPackage">Open Package</system:String>
+    <system:String x:Key="StrOpenXapkConfig">Open XAPK Config</system:String>
+
+    <!--  Package File Filter  -->
+    <system:String x:Key="StrPackageFiles">APK and XAPK Files</system:String>
+
+    <!--  Unknown Error  -->
+    <system:String x:Key="StrUnknownError">An unknown error occurred.</system:String>
+
+    <!--  Warning  -->
+    <system:String x:Key="StrWarning">Warning</system:String>
+    <system:String x:Key="StrLocalizedAppNamesNotDefined">Localized application names are not defined in this package.</system:String>
+    <system:String x:Key="StrAppPermissionsNotContained">This package does not contain application permissions.</system:String>
+    <system:String x:Key="StrSplitApkNotContained">This package does not contain a split APK.</system:String>
+    <system:String x:Key="StrNoItemsToImportFound">No items to import were found in this package.</system:String>
+
+    <!--  XAPK  -->
+    <system:String x:Key="StrXapk">xapk</system:String>
+    <system:String x:Key="StrXapkConfigExt">.xapkcfg</system:String>
+    <system:String x:Key="StrXapkConfigExtDescription">XAPK Configuration</system:String>
+    <system:String x:Key="StrXapkExt">.xapk</system:String>
+    <system:String x:Key="StrXapkExtDescription">XAPK Package</system:String>
+
+    <!--#endregion-->
+    
+    <!--#region Paths -->
+    <system:String x:Key="StrPackagingPath">Packaging Path</system:String>
+    <system:String x:Key="StrLocation">Location</system:String>
+    <!--#endregion-->
+    
+    <!--#region UI-->
+    <!--#region Common-->
+    <system:String x:Key="LabelImport">Import</system:String>
+    <system:String x:Key="LabelAdd">Add</system:String>
+    <system:String x:Key="LabelMultiAdd">Multi Add</system:String>
+    <system:String x:Key="LabelUpdate">Update</system:String>
+    <system:String x:Key="LabelEdit">Edit</system:String>
+    <system:String x:Key="LabelDelete">Delete</system:String>
+    <system:String x:Key="LabelPermissionStr">Permission</system:String>
+    <system:String x:Key="LabelFile">File</system:String>
+    <system:String x:Key="LabelInstallPath">Install Path</system:String>
+    <system:String x:Key="LabelInstallLocation">Install Location</system:String>
+    <system:String x:Key="LabelApplicationName">Application Name</system:String>
+    <system:String x:Key="LabelLocalAppName">Local Appication Name</system:String>
+    <system:String x:Key="LabelLocale">Region</system:String>
+    <system:String x:Key="LabelLocaleCode">Locale Code</system:String>
+    <system:String x:Key="LabelId">ID</system:String>
+    <system:String x:Key="LabelPackagingPath">Packaging Path</system:String>
+    <system:String x:Key="LabelSavePath">Location</system:String>
+    <system:String x:Key="LabelPermission">Permission</system:String>
+    <system:String x:Key="LabelSearch">Search...</system:String>
+    <system:String x:Key="LabelInclude">Include</system:String>
+    <system:String x:Key="LabelFinish">Finish</system:String>
+    <system:String x:Key="LabelFilters">Filters:</system:String>
+    <system:String x:Key="LabelABI">ABI</system:String>
+    <system:String x:Key="LabelDPI">DPI</system:String>
+    <system:String x:Key="LabelLocalization">Localization</system:String>
+    <system:String x:Key="LabelConfiguration">Config</system:String>
+    <system:String x:Key="LabelGettingStarted">Getting Started</system:String>
+    <system:String x:Key="LabelConfigurationFileLocation">Configuration File Location</system:String>
+    
+    <system:String x:Key="LabelPackaging">Packaging...</system:String>
+    <system:String x:Key="LabelPreparingResources">Preparing resources...</system:String>
+    <system:String x:Key="LabelPackagingFailed">Packaging Failed!</system:String>
+    <system:String x:Key="LabelPackagingCompleted">Packaging Completed!</system:String>
+    <system:String x:Key="LabelFinalizing">Finalizing...</system:String>
+    <system:String x:Key="LabelAddingResources">Adding resources...</system:String>
+    <system:String x:Key="LabelNoItemsToDisplayMessage">There are no items to display.</system:String>
+
+    <system:String x:Key="LabelPackage">Package</system:String>
+    <system:String x:Key="LabelNewPackage">New Package</system:String>
+    <system:String x:Key="LabelOpen">Open</system:String>
+    <system:String x:Key="LabelConfig">Configuration (.xapkcfg)</system:String>
+    <system:String x:Key="LabelOpenPackage">Package (APK or XAPK)</system:String>
+    <system:String x:Key="LabelApkPath">Apk Path</system:String>
+    <system:String x:Key="LabelSave">Save</system:String>
+    <system:String x:Key="LabelSaveAs">Save As</system:String>
+    <system:String x:Key="LabelClose">Close</system:String>
+    <system:String x:Key="LabelExit">Exit</system:String>
+    <system:String x:Key="LabelBuild">Build</system:String>
+    <system:String x:Key="LabelHelp">Help</system:String>
+    <system:String x:Key="LabelAbout">About</system:String>
+    <system:String x:Key="LabelRecentFiles">Recent Files</system:String>
+    <system:String x:Key="LabelClearTheList">Clear the list</system:String>
+
+    <!--#endregion-->
+
+    <!--#region Metadata UI-->
+    <system:String x:Key="LabelImportAPKorXAPK">Import from APK or XAPK package file</system:String>
+    <system:String x:Key="LabelPackageName">Package Name</system:String>
+    <system:String x:Key="LabelVersionCode">Version Code</system:String>
+    <system:String x:Key="LabelVersionName">Version Name</system:String>
+    <system:String x:Key="LabelMinSDKVersion">Min SDK Version</system:String>
+    <system:String x:Key="LabelTargetSDKVersion">Target SDK Version</system:String>
+
+    <!--#region Split APK-->
+    <system:String x:Key="LabelSplitApkMode">Split APK Mode</system:String>
+    <system:String x:Key="LabelAddSplitApks">Add Split APKs</system:String>
+    <!--#endregion-->
+
+    <!--#region Side Menu Items-->
+    <system:String x:Key="SMI_Metadata">Metadata</system:String>
+    <system:String x:Key="SMI_Package">Package</system:String>
+    <system:String x:Key="SMI_Permissions">Permissions</system:String>
+    <system:String x:Key="SMI_Locales">Locales Name</system:String>
+    <system:String x:Key="SMI_APK">APK</system:String>
+    <system:String x:Key="SMI_Expansions">Expansions</system:String>
+    <!--#endregion-->
+
+    <!--#region About-->
+    <system:String x:Key="LabelProductName">XAPK Packaging Tool</system:String>
+    <system:String x:Key="LabelExternalComponents">External Components</system:String>
+    <system:String x:Key="LabelCopyrightText">Copyright © Metin Altıkardeş, all rights reserved.</system:String>
+    <system:String x:Key="LabelVisitWebsite">Visit Website</system:String>
+    <system:String x:Key="LabelLicense">License</system:String>
+    <system:String x:Key="LabelPrivacy">Privacy Policy</system:String>
+    <!--#endregion-->
+
+    <!--#region Getting Started-->
+    <system:String x:Key="LabelRecentFilesEmpty">Recent files are empty!</system:String>
+    <system:String x:Key="LabelCreateNewPackage">Create New Package</system:String>
+    <system:String x:Key="LabelOpenConfigFile">Open Configuration File (.xapkcfg)</system:String>
+    <system:String x:Key="LabelImportFromPackage">Import From Package</system:String>
+    <!--#endregion-->
+
+    <!--#endregion-->
+
+    <!--#region Validators-->
+    <system:String x:Key="ApplicationNameCannotBeEmpty">Application name cannot be empty.</system:String>
+    <system:String x:Key="ApplicationNameContainsInvalidCharacters">
+        Application name contains invalid characters. Invalid characters: &lt;, &gt;, |, /, *, &quot;, \
+    </system:String>
+    <system:String x:Key="InvalidPackageName">Invalid package name format.</system:String>
+    <system:String x:Key="InvalidLocaleCode">Invalid input: Locale code must use a language and sub-country code (e.g., 'en_US').</system:String>
+    <system:String x:Key="InvalidVersionCode">Invalid input: Version code must consist of numbers only.</system:String>
+    <system:String x:Key="InvalidVersionName">Invalid input: Version name cannot be empty.</system:String>
+    <system:String x:Key="InvalidSdkLevel">The SDK level must be between {0} and {1}.</system:String>
+    <system:String x:Key="IsFieldRequiredAndNonWhitespace">This field is required and cannot contain only spaces.</system:String>
+    <!--#endregion-->
+
+    <!--#region Dialog-->
+    <system:String x:Key="DialogTitle_AddSplitAPKs">Add Split APKs</system:String>
+    <system:String x:Key="DialogTitle_Confirm">Confirm?</system:String>
+    <system:String x:Key="LabelSelectInstallPath">Select Install Path</system:String>
+    <system:String x:Key="LabelSelectPermissionKeys">Select Permission Keys</system:String>
+    <system:String x:Key="LabelAddRegion">Add Region</system:String>
+    <system:String x:Key="LabelSelectAdditionalResource">Select Additional Resource</system:String>
+    <system:String x:Key="LabelAddSplitApk">Add Split APK</system:String>
+    <system:String x:Key="LabelCancel">Cancel</system:String>
+    <system:String x:Key="LabelInsert">Insert</system:String>
+    <system:String x:Key="LabelFileSelect">File Select</system:String>
+    <system:String x:Key="LabelAPK">APK</system:String>
+    <system:String x:Key="LabelOpenInFileExplorer">Open in File Explorer</system:String>
+    <system:String x:Key="LabelUnsavedConfigurationPrompt">The configuration has not been saved. Would you like to save it now?</system:String>
+    <system:String x:Key="LabelUnsavedChangesPrompt">Changes have not been saved. Would you like to save them now?</system:String>
+    <system:String x:Key="LabelAskToSaveChanges">Do you want to save the changes?</system:String>
+    <!--#endregion-->
+
+</ResourceDictionary>

@@ -1,0 +1,179 @@
+﻿<hc:Window
+    x:Class="XapkPackagingTool.View.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:constants="clr-namespace:XapkPackagingTool.Constants"
+    xmlns:controls="clr-namespace:XapkPackagingTool.CustomControl"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:hc="https://handyorg.github.io/handycontrol"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:view="clr-namespace:XapkPackagingTool.View.Pages.Main"
+    xmlns:vm="clr-namespace:XapkPackagingTool.ViewModel.Main"
+    Title="XAPK Packaging Tool"
+    Width="730"
+    Height="680"
+    Loaded="Window_Loaded"
+    NonClientAreaBackground="{DynamicResource SideMenuBackground}"
+    Icon="{DynamicResource AppIcon}"
+    ShowIcon="True"
+    mc:Ignorable="d">
+    <Window.Resources>
+        <Style BasedOn="{StaticResource BaseStyle}" TargetType="Window">
+            <Setter Property="FontFamily" Value="Segoe UI" />
+        </Style>
+        <DataTemplate DataType="{x:Type vm:PackagingOptionsViewModel}">
+            <view:PackagingOptionsUI />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:PackageMetadataViewModel}">
+            <view:PackageMetadataUI />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:PermissionsViewModel}">
+            <view:PackagePermissionsUI />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:LocalesViewModel}">
+            <view:PackageLocalesUI />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:ApkVariantsViewModel}">
+            <view:ApkVariantUI />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:ExpansionsViewModel}">
+            <view:PackageExpansionsUI />
+        </DataTemplate>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid
+            Grid.Row="0"
+            Height="30"
+            Background="{DynamicResource SideMenuBackground}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <Menu
+                Grid.Column="0"
+                Background="#e6f3fd"
+                FontSize="14">
+                <MenuItem Header="{StaticResource LabelFile}">
+                    <MenuItem Command="{Binding NewPackageCommand}" Header="{StaticResource LabelCreateNewPackage}" />
+                    <MenuItem Header="{StaticResource LabelOpen}">
+                        <MenuItem Header="{StaticResource LabelConfig}" Command="{Binding OpenConfigCommand}" />
+                        <MenuItem Header="{StaticResource LabelOpenPackage}" Command="{Binding OpenPackageCommand}" />
+                    </MenuItem>
+                    <MenuItem Header="{StaticResource LabelSave}" Command="{Binding SaveCommand}"/>
+                    <MenuItem Header="{StaticResource LabelSaveAs}" Command="{Binding SaveAsCommand}" />
+                    <MenuItem Header="{StaticResource LabelClose}" Command="{Binding CloseCommand}" />
+                    <MenuItem Header="{StaticResource LabelRecentFiles}" ItemsSource="{Binding RecentFiles}">
+                        <MenuItem.ItemContainerStyle>
+                            <Style TargetType="MenuItem" BasedOn="{StaticResource MenuItem4FrameStyle}">
+                                <Setter Property="Header" Value="{Binding}" />
+                                <Setter Property="Command" Value="{Binding DataContext.OpenRecentCommand, RelativeSource={RelativeSource AncestorType=Window}}"/>
+                                <Setter Property="CommandParameter">
+                                    <Setter.Value>
+                                        <MultiBinding Converter="{StaticResource IndexConverter}">
+                                            <Binding />
+                                            <Binding RelativeSource="{RelativeSource AncestorType={x:Type MenuItem}}" Path="ItemsSource" />
+                                        </MultiBinding>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </MenuItem.ItemContainerStyle>
+                    </MenuItem>
+                    <MenuItem Header="{StaticResource LabelExit}" Command="{Binding ExitAppCommand}" />
+                </MenuItem>
+                <MenuItem Header="{StaticResource LabelPackage}">
+                    <MenuItem Header="{StaticResource LabelBuild}" Command="{Binding BuildCommand}" />
+                </MenuItem>
+                <MenuItem Header="{StaticResource LabelHelp}">
+                    <MenuItem Command="{Binding OpenAboutCommand}" Header="{StaticResource LabelAbout}" />
+                </MenuItem>
+            </Menu>
+            <Line Margin="5,0,5,0" Grid.Column="1" Height="20" X1="0" Y1="100" X2="0" Y2="0" Stroke="Black" StrokeThickness="2"/>
+            <StackPanel
+                Grid.Column="2"
+                Margin="0,0,10,0"
+                HorizontalAlignment="left"
+                Background="White"
+                Orientation="Horizontal">
+                <Button
+                    Command="{Binding SaveCommand}"
+                    BorderThickness="0"
+                    Background="{DynamicResource SideMenuBackground}">
+                    <Image Width="16" Height="16" Source="{StaticResource SaveIcon}"/>
+                </Button>
+                <Button
+                    BorderThickness="0"
+                    Background="{DynamicResource SideMenuBackground}"
+                    Command="{Binding BuildCommand}"
+                    Foreground="#00897B" >
+                    <Image Source="{StaticResource PackageBuildIcon}"/>
+                </Button>
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid.Background>
+                <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.8,1">
+                    <GradientStop Color="#FFF3F9FF" />
+                    <GradientStop Offset="1.2" Color="#FFE1EBF4" />
+                </LinearGradientBrush>
+            </Grid.Background>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="80" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <StackPanel
+                Grid.Column="0"
+                Background="{DynamicResource SideMenuBackground}"
+                Orientation="Vertical">
+                <controls:SideMenuItem
+                    Width="80"
+                    Command="{Binding VMHost.SwitchViewModelCommand}"
+                    CommandParameter="{x:Static constants:MainViewNavigationKeys.PACKAGE}"
+                    Content="{StaticResource SMI_Package}"
+                    Icon="{StaticResource PackageDraw}" />
+                <controls:SideMenuItem
+                    Width="80"
+                    IsChecked="True"
+                    Command="{Binding VMHost.SwitchViewModelCommand}"
+                    CommandParameter="{x:Static constants:MainViewNavigationKeys.METADATA}"
+                    Content="{StaticResource SMI_Metadata}"
+                    Icon="{StaticResource Metadata}" />
+                <controls:SideMenuItem
+                    Width="80"
+                    Command="{Binding VMHost.SwitchViewModelCommand}"
+                    CommandParameter="{x:Static constants:MainViewNavigationKeys.PERMISSIONS}"
+                    Content="{StaticResource SMI_Permissions}"
+                    Icon="{StaticResource PermissionDraw}" />
+                <controls:SideMenuItem
+                    Width="80"
+                    Command="{Binding VMHost.SwitchViewModelCommand}"
+                    CommandParameter="{x:Static constants:MainViewNavigationKeys.LOCALES}"
+                    Content="{StaticResource SMI_Locales}"
+                    Icon="{StaticResource LocalesDraw}" />
+                <controls:SideMenuItem
+                    Width="80"
+                    Command="{Binding VMHost.SwitchViewModelCommand}"
+                    CommandParameter="{x:Static constants:MainViewNavigationKeys.APK_VARIANTS}"
+                    Content="{StaticResource SMI_APK}"
+                    Icon="{StaticResource APK}" />
+                <controls:SideMenuItem
+                    Width="80"
+                    Command="{Binding VMHost.SwitchViewModelCommand}"
+                    CommandParameter="{x:Static constants:MainViewNavigationKeys.EXPANSIONS}"
+                    Content="{StaticResource SMI_Expansions}"
+                    Icon="{StaticResource ExpansionsDraw}" />
+            </StackPanel>
+            <ContentControl
+                Grid.Column="1"
+                Margin="10"
+                Padding="10"
+                Background="Transparent"
+                Content="{Binding VMHost.CurrentViewModel}" />
+        </Grid>
+    </Grid>
+</hc:Window>

@@ -1,0 +1,217 @@
+﻿
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:system="clr-namespace:System;assembly=mscorlib">
+
+    <!--#region Code Behind-->
+    <!--  Erişim Engellendi  -->
+    <system:String x:Key="StrAccessDeniedMessage">{0}'a erişim izniniz yok.</system:String>
+    <system:String x:Key="StrAccessDeniedTitle">Erişim Engellendi!</system:String>
+
+    <!--  Varlık  -->
+    <system:String x:Key="StrAssetLoadFailed">Varlık yüklenemedi: {0}. XAPK Packaging Tool'un düzgün çalışabilmesi için tekrar yükleyin.</system:String>
+
+    <!--  APK  -->
+    <system:String x:Key="StrApk">apk</system:String>
+    <system:String x:Key="StrApkExt">.apk</system:String>
+    <system:String x:Key="StrSelectAPK">APK Seçin</system:String>
+    <system:String x:Key="StrApkExtDescription">APK Paketi</system:String>
+    <system:String x:Key="StrAppName">XAPK Packaging Tool</system:String>
+
+    <!--  Diyalog Filtreleri  -->
+    <system:String x:Key="StrSelectApkFile">APK Dosyası Seçin</system:String>
+    <system:String x:Key="StrSelectPackageIcon">Paket Simgesi Seçin</system:String>
+    <system:String x:Key="StrXapkConfigFileFilterDescription">XAPK Paket Yapılandırma Dosyası</system:String>
+    <system:String x:Key="PngFileFilterDescription">PNG Görüntüsü</system:String>
+
+    <!--  Yinelenen Öğe  -->
+    <system:String x:Key="StrDuplicateItemMessage">Bu öğe listede zaten mevcut.</system:String>
+    <system:String x:Key="StrDuplicateItemTitle">Yinelenen Öğe</system:String>
+
+    <!--  Hata  -->
+    <system:String x:Key="StrError">Hata</system:String>
+    <system:String x:Key="StrUnsupportedFileFormat">'{0}' dosya formatı desteklenmiyor.</system:String>
+    <system:String x:Key="StrExtNotSupported">Dosya uzantısı '{0}' desteklenmiyor.</system:String>
+
+    <!--  Dosya Bulunamadı  -->
+    <system:String x:Key="StrFileNotFoundMessageTitle">Dosya Bulunamadı!</system:String>
+    <system:String x:Key="StrFileNotFoundMessage">Belirtilen dosya bulunamadı: {0}</system:String>
+	<system:String x:Key="StrBaseApkNotFound">APK dosyası bulunamadı! Lütfen tam APK veya bölünmüş temel APK (base.apk) ekleyin.</system:String>
+	<system:String x:Key="StrBaseSplitApkNotFound">Bölünmüş temel APK dosyası (base nokta APK) tanımlanmamış! Lütfen bölünmüş temel APK ekleyin.</system:String>
+
+    <!--  İçe Aktarma Çakışması  -->
+    <system:String x:Key="StrImportConflictMessage">İçe aktarmaya çalıştığınız bazı öğeler zaten mevcut ancak farklı verilere sahip. Mevcut öğeleri yeni verilerle güncellemek ister misiniz?</system:String>
+    <system:String x:Key="StrImportPackage">Paket İçe Aktar</system:String>
+
+    <!--  İçe Aktarma Hatası  -->
+    <system:String x:Key="StrImportErrorMessageTitle">İçe Aktarma Hatası</system:String>
+    <system:String x:Key="StrPackageImportErrorMessage">Paketi içe aktarırken bir hata oluştu. Dosya yolu: {0}</system:String>
+
+    <!--  Silinecek Öğeler Yok  -->
+    <system:String x:Key="StrNoItemsToDelete">Silmek istediğiniz öğe mevcut değil.</system:String>
+
+    <!--  Yapılandırma Dosyası Aç  -->
+    <system:String x:Key="StrConfigFileErrorMessageTitle">Yapılandırma Dosyası Okuma Hatası</system:String>
+    <system:String x:Key="StrXapkConfigFileReadErrorMessage">XAPK yapılandırma dosyası okunamıyor. Dosya yolu: {0}</system:String>
+
+    <!--  Paket Aç  -->
+    <system:String x:Key="StrOpenPackage">Paket Aç</system:String>
+    <system:String x:Key="StrOpenXapkConfig">XAPK Yapılandırması Aç</system:String>
+
+    <!--  Paket Dosya Filtresi  -->
+    <system:String x:Key="StrPackageFiles">APK ve XAPK Dosyaları</system:String>
+
+    <!--  Bilinmeyen Hata  -->
+    <system:String x:Key="StrUnknownError">Bilinmeyen bir hata oluştu.</system:String>
+
+    <!--  Uyarı  -->
+    <system:String x:Key="StrWarning">Uyarı</system:String>
+    <system:String x:Key="StrLocalizedAppNamesNotDefined">Bu pakette yereleştirilmiş uygulama adları tanımlanmamış.</system:String>
+    <system:String x:Key="StrAppPermissionsNotContained">Bu paket uygulama izinleri içermiyor.</system:String>
+    <system:String x:Key="StrSplitApkNotContained">Bu paket bölünmüş APK içermiyor.</system:String>
+    <system:String x:Key="StrNoItemsToImportFound">Bu pakette içe aktarılacak öğe bulunamadı.</system:String>
+
+    <!--  XAPK  -->
+    <system:String x:Key="StrXapk">xapk</system:String>
+    <system:String x:Key="StrXapkConfigExt">.xapkcfg</system:String>
+    <system:String x:Key="StrXapkConfigExtDescription">XAPK Yapılandırma</system:String>
+    <system:String x:Key="StrXapkExt">.xapk</system:String>
+    <system:String x:Key="StrXapkExtDescription">XAPK Paketi</system:String>
+    
+    <!--#region Paths -->
+    <system:String x:Key="StrLocation">Konum</system:String>
+    <system:String x:Key="StrPackagingPath">Paketleme Yolu</system:String>
+    <!--#endregion-->
+
+    <!--#endregion-->
+    
+    <!--#region UI-->
+    <!--#region Common-->
+    <system:String x:Key="LabelImport">İçe Aktar</system:String>
+    <system:String x:Key="LabelAdd">Ekle</system:String>
+    <system:String x:Key="LabelUpdate">Güncelle</system:String>
+    <system:String x:Key="LabelEdit">Düzenle</system:String>
+    <system:String x:Key="LabelDelete">Sil</system:String>
+    <system:String x:Key="LabelPermissionStr">İzin</system:String>
+    <system:String x:Key="LabelFile">Dosya</system:String>
+    <system:String x:Key="LabelInstallPath">Hedef Yol</system:String>
+    <system:String x:Key="LabelInstallLocation">Hedef Konum</system:String>
+    <system:String x:Key="LabelLocalAppName">Yerel Uygulama Adı</system:String>
+    <system:String x:Key="LabelLocale">Bölge</system:String>
+    <system:String x:Key="LabelLocaleCode">Bölge Kodu</system:String>
+    <system:String x:Key="LabelId">ID</system:String>
+    <system:String x:Key="LabelPackagingPath">Paketleme Yolu</system:String>
+    <system:String x:Key="LabelSavePath">Konum</system:String>
+    <system:String x:Key="LabelPermission">İzin</system:String>
+    <system:String x:Key="LabelMultiAdd">Toplu Ekle</system:String>
+    <system:String x:Key="LabelCreateNewPackage">Yeni Paket Oluştur</system:String>
+    <system:String x:Key="LabelSearch">Ara...</system:String>
+    <system:String x:Key="LabelInclude">Dahil Et</system:String>
+    <system:String x:Key="LabelFinish">Bitir</system:String>
+    <system:String x:Key="LabelFilters">Filtreler:</system:String>
+    <system:String x:Key="LabelABI">ABI</system:String>
+    <system:String x:Key="LabelDPI">DPI</system:String>
+    <system:String x:Key="LabelLocalization">Yerelleştirme</system:String>
+    <system:String x:Key="LabelConfiguration">Konfigurasyon</system:String>
+    <system:String x:Key="LabelGettingStarted">Başlarken</system:String>
+	<system:String x:Key="LabelNoItemsToDisplayMessage">Gösterilecek öğe yok.</system:String>
+    <system:String x:Key="LabelConfigurationFileLocation">Yapılandırma Dosyası Konumu</system:String>
+
+    <system:String x:Key="LabelPackaging">Paketleniyor...</system:String>
+    <system:String x:Key="LabelPreparingResources">Kaynaklar hazırlanıyor...</system:String>
+    <system:String x:Key="LabelPackagingFailed">Paketleme Başarısız!</system:String>
+    <system:String x:Key="LabelPackagingCompleted">Paketleme Tamamlandı!</system:String>
+    <system:String x:Key="LabelFinalizing">Tamamlanıyor...</system:String>
+    <system:String x:Key="LabelAddingResources">Kaynaklar ekleniyor...</system:String>
+
+    <system:String x:Key="LabelPackage">Paket</system:String>
+    <system:String x:Key="LabelNewPackage">Yeni Paket</system:String>
+    <system:String x:Key="LabelOpen">Aç</system:String>
+    <system:String x:Key="LabelConfig">Yapılandırma (.xapkcfg)</system:String>
+    <system:String x:Key="LabelOpenPackage">Paket (APK veya XAPK)</system:String>
+    <system:String x:Key="LabelApkPath">Apk Yolu</system:String>
+    <system:String x:Key="LabelSave">Kaydet</system:String>
+    <system:String x:Key="LabelSaveAs">Farklı Kaydet</system:String>
+    <system:String x:Key="LabelClose">Kapat</system:String>
+    <system:String x:Key="LabelExit">Çıkış</system:String>
+    <system:String x:Key="LabelBuild">Oluştur</system:String>
+    <system:String x:Key="LabelHelp">Yardım</system:String>
+    <system:String x:Key="LabelAbout">Hakkında</system:String>
+    <system:String x:Key="LabelRecentFiles">Son Dosyalar</system:String>
+    <system:String x:Key="LabelClearTheList">Listeyi temizle</system:String>
+
+    <!--#endregion-->
+
+    <!--#region Metadata UI-->
+    <system:String x:Key="LabelImportAPKorXAPK">APK veya XAPK paket dosyasından içe aktar</system:String>
+    <system:String x:Key="LabelApplicationName">Uygulama Adı</system:String>
+    <system:String x:Key="LabelPackageName">Paket Adı</system:String>
+    <system:String x:Key="LabelVersionCode">Sürüm Kodu</system:String>
+    <system:String x:Key="LabelVersionName">Sürüm Adı</system:String>
+    <system:String x:Key="LabelMinSDKVersion">Min SDK Sürümü</system:String>
+    <system:String x:Key="LabelTargetSDKVersion">Hedef SDK Sürümü</system:String>
+
+    <!--#region Split APK-->
+    <system:String x:Key="LabelSplitApkMode">Bölünmüş APK Modu</system:String>
+    <system:String x:Key="LabelAddSplitApks">Split APK'leri Ekle</system:String>
+    <!--#endregion-->
+
+    <!--#region Yan Menü Öğeleri-->
+    <system:String x:Key="SMI_Metadata">Metadata</system:String>
+    <system:String x:Key="SMI_Package">Paket</system:String>
+    <system:String x:Key="SMI_Permissions">İzinler</system:String>
+    <system:String x:Key="SMI_Locales">Yerel Adlar</system:String>
+    <system:String x:Key="SMI_APK">APK</system:String>
+    <system:String x:Key="SMI_Expansions">Genişletme</system:String>
+    <!--#endregion-->
+
+    <!--#region Hakkında-->
+    <system:String x:Key="LabelProductName">XAPK Packaging Tool</system:String>
+    <system:String x:Key="LabelExternalComponents">Harici Bileşenler</system:String>
+    <system:String x:Key="LabelCopyrightText">Telif Hakkı © Metin Altıkardeş, tüm hakları saklıdır.</system:String>
+    <system:String x:Key="LabelVisitWebsite">Web Sitesini Ziyaret Et</system:String>
+    <system:String x:Key="LabelLicense">Lisans</system:String>
+    <system:String x:Key="LabelPrivacy">Gizlilik Politikası</system:String>
+    <!--#endregion-->
+
+    <!--#region Başlarken-->
+    <system:String x:Key="LabelRecentFilesEmpty">Son dosyalar boş!</system:String>
+    <system:String x:Key="LabelOpenConfigFile">Yapılandırma Dosyası Aç (.xapkcfg)</system:String>
+    <system:String x:Key="LabelImportFromPackage">Paket Dosyasından İçe Aktar</system:String>
+    <!--#endregion-->
+
+    <!--#endregion-->
+
+    <!--#region Doğrulayıcılar-->
+    <system:String x:Key="ApplicationNameCannotBeEmpty">Uygulama adı boş olamaz.</system:String>
+    <system:String x:Key="ApplicationNameContainsInvalidCharacters">
+        Uygulama adı geçersiz karakterler içeriyor. Geçersiz karakterler: &lt;, &gt;, |, /, *, &quot;, \
+    </system:String>
+    <system:String x:Key="InvalidPackageName">Geçersiz paket adı formatı.</system:String>
+    <system:String x:Key="InvalidLocaleCode">Geçersiz giriş: Locale kodu, dil ve ülke alt kodu kullanmalıdır (örn. 'en_US').</system:String>
+    <system:String x:Key="InvalidVersionCode">Geçersiz giriş: Sürüm kodu yalnızca sayılardan oluşmalıdır.</system:String>
+    <system:String x:Key="InvalidVersionName">Geçersiz giriş: Sürüm adı boş olamaz.</system:String>
+    <system:String x:Key="IsFieldRequiredAndNonWhitespace">Bu alan zorunludur ve boşluk içeremez.</system:String>
+    <system:String x:Key="InvalidSdkLevel">SDK düzeyi {0} ile {1} arasında olmalıdır.</system:String>
+    <!--#endregion-->
+    
+    <!--#region Diyalog-->
+    <system:String x:Key="DialogTitle_AddSplitAPKs">Bölünmüş APK'lar Ekle</system:String>
+    <system:String x:Key="DialogTitle_Confirm">Onayla?</system:String>
+    <system:String x:Key="LabelSelectInstallPath">Kurulum Yolu Seçin</system:String>
+    <system:String x:Key="LabelSelectPermissionKeys">İzin Anahtarları Seçin</system:String>
+    <system:String x:Key="LabelAddRegion">Bölge Ekleyin</system:String>
+    <system:String x:Key="LabelSelectAdditionalResource">Ek Kaynak Seçin</system:String>
+    <system:String x:Key="LabelAddSplitApk">Bölünmüş APK Ekleyin</system:String>
+    <system:String x:Key="LabelCancel">İptal</system:String>
+    <system:String x:Key="LabelInsert">Ekle</system:String>
+    <system:String x:Key="LabelFileSelect">Dosya Seç</system:String>
+    <system:String x:Key="LabelAPK">APK</system:String>
+    <system:String x:Key="LabelOpenInFileExplorer">Dosya Gezgini'nde Aç</system:String>
+    <system:String x:Key="LabelUnsavedConfigurationPrompt">Yapılandırma kaydedilmedi. Şimdi kaydedilsin mi?</system:String>
+    <system:String x:Key="LabelUnsavedChangesPrompt">Değişiklikler kaydedilmedi. Şimdi kaydedilsin mi?</system:String>
+    <system:String x:Key="LabelAskToSaveChanges">Değişiklikleri kaydetmek istiyor musunuz?</system:String>
+    <!--#endregion-->
+
+</ResourceDictionary>

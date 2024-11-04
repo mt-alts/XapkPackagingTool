@@ -1,0 +1,8 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converter="clr-namespace:XapkPackagingTool.Utility.Converters">
+    <converter:ImagePathToImageSourceConverter x:Key="ImagePathToImageSourceConverter" />
+    <converter:IndexConverter x:Key="IndexConverter" />
+    <converter:InverseBooleanConverter x:Key="InverseBooleanConverter" />
+</ResourceDictionary>

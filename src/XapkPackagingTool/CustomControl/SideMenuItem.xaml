@@ -1,0 +1,102 @@
+﻿
+<RadioButton
+    x:Class="XapkPackagingTool.CustomControl.SideMenuItem"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:XapkPackagingTool.CustomControl"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Width="200"
+    Height="60"
+    d:DesignHeight="60"
+    d:DesignWidth="200"
+    mc:Ignorable="d">
+
+    <RadioButton.Style>
+        <Style TargetType="RadioButton">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="RadioButton">
+                        <Grid>
+
+                            <!--  Background Border  -->
+                            <Border
+                                x:Name="BackgroundBorder"
+                                Background="Transparent"
+                                CornerRadius="4" />
+                            <Grid Background="Transparent">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="4" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+
+                                <!--  Selected Indicator  -->
+                                <Border
+                                    x:Name="SelectedIndicator"
+                                    Grid.Column="0"
+                                    Width="4"
+                                    Height="{Binding ElementName=userControl, Path=ActualHeight}"
+                                    Margin="0,0,0,0"
+                                    Background="Transparent"
+                                    CornerRadius="2" />
+
+                                <!--  Content  -->
+                                <StackPanel
+                                    Grid.Column="1"
+                                    Margin="0"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Orientation="Vertical">
+
+                                    <!--  Icon  -->
+                                    <Image
+                                        Width="25"
+                                        Height="25"
+                                        Source="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}" />
+
+                                    <!--  Content Presenter wrapped in Viewbox for auto-resizing  -->
+                                    <Viewbox StretchDirection="DownOnly">
+                                        <TextBlock
+                                            x:Name="ContentPresenter"
+                                            Margin="0,4,4,0"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            Text="{TemplateBinding Content}" />
+                                    </Viewbox>
+                                </StackPanel>
+                            </Grid>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter TargetName="SelectedIndicator" Property="Background" Value="DodgerBlue" />
+                                <Setter TargetName="BackgroundBorder" Property="Background" Value="#eeeeee" />
+                                <Setter TargetName="ContentPresenter" Property="FontWeight" Value="Bold" />
+                            </Trigger>
+                            <Trigger Property="IsChecked" Value="False">
+                                <Setter TargetName="SelectedIndicator" Property="Background" Value="Transparent" />
+                                <Setter TargetName="BackgroundBorder" Property="Background" Value="Transparent" />
+                                <Setter TargetName="ContentPresenter" Property="FontWeight" Value="Normal" />
+                            </Trigger>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsChecked" Value="False" />
+                                    <Condition Property="IsMouseOver" Value="True" />
+                                </MultiTrigger.Conditions>
+                                <Setter TargetName="SelectedIndicator" Property="Background" Value="Gray" />
+                                <Setter TargetName="BackgroundBorder" Property="Background" Value="#eeeeee" />
+                            </MultiTrigger>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsChecked" Value="True" />
+                                    <Condition Property="IsMouseOver" Value="False" />
+                                </MultiTrigger.Conditions>
+                                <Setter TargetName="SelectedIndicator" Property="Background" Value="DodgerBlue" />
+                                <Setter TargetName="BackgroundBorder" Property="Background" Value="#F3F9FE" />
+                            </MultiTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </RadioButton.Style>
+</RadioButton>

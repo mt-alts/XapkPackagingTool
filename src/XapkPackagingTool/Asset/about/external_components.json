@@ -1,0 +1,38 @@
+[
+	{
+		"Name": "AAPT2",
+		"LicenseInfo": "Apache 2.0, © The Android Open Source Project",
+		"WebSite": "https://android.googlesource.com/platform/frameworks/base/+/refs/heads/main/tools/aapt2/",
+		"LicenseText": "Licenses\\AAPT2.html"
+	},
+	{
+		"Name": "HandyControl",
+		"LicenseInfo": "MIT, © HandyOrg",
+		"WebSite": "https://github.com/HandyOrg/HandyControl",
+		"LicenseText": "Licenses\\HandyControl.html"
+	},
+	{
+		"Name": "Newtonsoft.Json",
+		"LicenseInfo": "MIT, © James Newton-King",
+		"WebSite": "https://github.com/JamesNK/Newtonsoft.Json",
+		"LicenseText": "Licenses\\Newtonsoft.Json.html"
+	},
+	{
+		"Name": "SharpZipLib",
+		"LicenseInfo": "MIT, © SharpZipLib Contributors",
+		"WebSite": "https://github.com/icsharpcode/SharpZipLib",
+		"LicenseText": "Licenses\\SharpZipLib.html"
+	},
+	{
+		"Name": "Microsoft.Extensions.DependencyInjection",
+		"LicenseInfo": "MIT, © .NET Foundation and Contributors",
+		"WebSite": "https://github.com/dotnet/runtime/tree/main",
+		"LicenseText": "Licenses\\Microsoft.Extensions.DependencyInjection.html"
+	},
+	{
+		"Name": "Microsoft.Extensions.DependencyInjection.Abstractions",
+		"LicenseInfo": "MIT, © .NET Foundation and Contributors",
+		"WebSite": "https://github.com/dotnet/runtime/tree/main",
+		"LicenseText": "Licenses\\Microsoft.Extensions.DependencyInjection.Abstractions.html"
+	}
+]

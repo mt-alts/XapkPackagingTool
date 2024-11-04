@@ -1,0 +1,94 @@
+﻿
+<Page
+    x:Class="XapkPackagingTool.View.Pages.Startup.NewPackagePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:hc="https://handyorg.github.io/handycontrol"
+    xmlns:local="clr-namespace:XapkPackagingTool.View.Pages.Startup"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:validators="clr-namespace:XapkPackagingTool.Utility.Validators.TextInput"
+    Title="NewProjectPage"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    Background="{DynamicResource SideMenuBackground}"
+    mc:Ignorable="d">
+
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../../../Resources/Templates/InvalidInputTemplate.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+
+    <Border CornerRadius="6" Margin="25" Background="{DynamicResource ContentBackground}">
+        <Grid Margin="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Row="0" Orientation="Vertical">
+                <hc:TextBox
+                    Height="54"
+                    hc:InfoElement.Necessary="True"
+                    hc:InfoElement.Title="{StaticResource LabelPackageName}"
+                    Style="{StaticResource TextBoxValidation}"
+                    Validation.ErrorTemplate="{StaticResource ErrorTemplate}">
+                    <TextBox.Text>
+                        <Binding
+                            Mode="TwoWay"
+                            Path="PackageName"
+                            UpdateSourceTrigger="PropertyChanged">
+                            <Binding.ValidationRules>
+                                <validators:PackageNameValidationRule />
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                </hc:TextBox>
+                <hc:TextBox
+                    Height="54"
+                    Margin="0,10,0,0"
+                    hc:InfoElement.Necessary="False"
+                    hc:InfoElement.Title="{DynamicResource LabelApplicationName}"
+                    Text="{Binding AppName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <Grid Margin="0,5,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <hc:TextBox
+                        Height="54"
+                        Grid.Column="0"
+                        Margin="0,10,0,0"
+                        hc:InfoElement.Necessary="True"
+                        hc:InfoElement.Title="{StaticResource LabelSavePath}"
+                        Text="{Binding SavePath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    <Button
+                        Height="32"
+                        Grid.Column="1"
+                        Margin="0,32,0,0"
+                        VerticalAlignment="Top"
+                        Content="..."
+                        Command="{Binding SelectLocationCommand}"/>
+                </Grid>
+            </StackPanel>
+            <StackPanel
+                Grid.Row="1"
+                HorizontalAlignment="Right"
+                Orientation="Horizontal">
+                <Button
+                    Margin="0,0,5,0"
+                    Background="{StaticResource DefaultControlBackground}"
+                    Command="{Binding BackCommand}"
+                    Content="Back" />
+                <Button
+                    Background="{DynamicResource PrimaryControlBackground}"
+                    Command="{Binding CreatePackageCommand}"
+                    Content="Create"
+                    Foreground="{StaticResource PrimaryControlForeground}"
+                    IsEnabled="{Binding CanCreatePackage, UpdateSourceTrigger=PropertyChanged}" />
+            </StackPanel>
+        </Grid>
+    </Border>
+</Page>

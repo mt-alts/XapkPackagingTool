@@ -1,0 +1,63 @@
+﻿
+<UserControl
+    x:Class="XapkPackagingTool.View.Pages.Main.ApkVariantUI"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:customcontrol="clr-namespace:XapkPackagingTool.CustomControl"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:hc="https://handyorg.github.io/handycontrol"
+    xmlns:local="clr-namespace:XapkPackagingTool.View.Pages.Main"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ui="clr-namespace:XapkPackagingTool.View.Pages.Main"
+    xmlns:vm="clr-namespace:XapkPackagingTool.ViewModel.Main.ApkVariants"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <DataTemplate DataType="{x:Type vm:MonolithicApkViewModel}">
+            <ui:SingleApkOptionsUI />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:SplitsApkViewModel}">
+            <ui:PackageSplitsUI />
+        </DataTemplate>
+    </UserControl.Resources>
+
+    <Grid Background="Transparent">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Border
+            x:Name="apkStructureOptionBar"
+            Grid.Row="0"
+            Background="White"
+            BorderBrush="#E3E3E3"
+            BorderThickness="1"
+            CornerRadius="6">
+            <customcontrol:ToggleSwitch
+                Width="auto"
+                Height="40"
+                Margin="10,0,10,0"
+                Command="{Binding VMHost.SwitchViewModelCommand}"
+                Content="{StaticResource LabelSplitApkMode}"
+                FontFamily="Segoe UI"
+                FontSize="13"
+                IsChecked="{Binding IsSplitApkModeEnabled}">
+                <ToggleButton.Style>
+                    <Style TargetType="ToggleButton">
+                        <Setter Property="CommandParameter" Value="mono" />
+                        <Style.Triggers>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter Property="CommandParameter" Value="split" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </ToggleButton.Style>
+            </customcontrol:ToggleSwitch>
+        </Border>
+        <ContentControl
+            Grid.Row="1"
+            Margin="0,15,0,5"
+            Content="{Binding VMHost.CurrentViewModel, UpdateSourceTrigger=PropertyChanged}" />
+    </Grid>
+</UserControl>
