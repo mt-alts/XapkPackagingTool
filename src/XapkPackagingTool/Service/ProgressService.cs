@@ -16,10 +16,10 @@ namespace XapkPackagingTool.Service
     {
         public event EventHandler CancelRequired;
 
-        private readonly PackageProgressViewModel _progressViewModel;
+        private readonly PackagingProgressViewModel _progressViewModel;
         private ProgressDialog _progressDialog;
 
-        public ProgressService(PackageProgressViewModel progressViewModel)
+        public ProgressService(PackagingProgressViewModel progressViewModel)
         {
             _progressViewModel = progressViewModel;
             _progressViewModel.CancelRequired += (sender, e) =>

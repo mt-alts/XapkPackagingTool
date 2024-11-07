@@ -11,7 +11,7 @@ using XapkPackagingTool.Service;
 
 namespace XapkPackagingTool.ViewModel
 {
-    internal class PackageProgressViewModel : ViewModelBase
+    internal class PackagingProgressViewModel : ViewModelBase
     {
         public event EventHandler CancelRequired;
 
@@ -76,7 +76,7 @@ namespace XapkPackagingTool.ViewModel
             }
         }
 
-        public PackageProgressViewModel()
+        public PackagingProgressViewModel()
         {
             CancelCommand = new RelayCommand(CancelExecute);
             OpenInExplorerCommand = new RelayCommand(OpenInExplorerExecute);
