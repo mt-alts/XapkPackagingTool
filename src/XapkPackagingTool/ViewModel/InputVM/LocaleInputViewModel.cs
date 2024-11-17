@@ -14,9 +14,7 @@ namespace XapkPackagingTool.ViewModel.InputVM
     internal class LocaleInputViewModel
         : SelectableItemsDialogViewModel<KeyValuePair<string, string>>
     {
-        private readonly string ASSET_PATH = PathHelper.GetFullPath(
-            Properties.Path.Default.AssetLocales
-        );
+        private readonly string ASSET_PATH = AssetPath.Xapk.PredefinedLocaleCodes;
 
         private readonly List<string> _usedLocales;
 

@@ -19,6 +19,14 @@ namespace XapkPackagingTool.Helper
         {
             switch (exception)
             {
+                case UnsupportedFileFormatException:
+                case BaseApkNotFoundException:
+                case MetadataNotValidException:
+                    _messageDialogService.ShowWarning(exception.Message, "StrAppName".Localize());
+                    break;
+                case AssetLoadException:
+                    _messageDialogService.ShowError(exception.Message, "StrAppName".Localize());
+                    break;
                 case FileNotFoundException:
                     _messageDialogService.ShowError(
                         exception.Message,
@@ -31,9 +39,9 @@ namespace XapkPackagingTool.Helper
                         "StrConfigFileErrorMessageTitle".Localize()
                     );
                     break;
-                case UnauthorizedAccessException:
+                case FileProcessingException:
                     _messageDialogService.ShowError(
-                        "StrAccessDeniedMessage".Localize(),
+                        exception.Message,
                         "StrAccessDeniedTitle".Localize()
                     );
                     break;
@@ -48,15 +56,6 @@ namespace XapkPackagingTool.Helper
                         $": {exception.Message}",
                         "StrAppName".Localize()
                     );
-                    break;
-                case UnsupportedFileFormatException:
-                    _messageDialogService.ShowWarning(exception.Message, "StrAppName".Localize());
-                    break;
-                case BaseApkNotFoundException:
-                    _messageDialogService.ShowWarning(exception.Message, "StrAppName".Localize());
-                    break;
-                case AssetLoadException:
-                    _messageDialogService.ShowError(exception.Message, "StrAppName".Localize());
                     break;
                 default:
                     _messageDialogService.ShowError(

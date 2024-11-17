@@ -6,6 +6,8 @@
 using SharpXapkLib.Builder;
 using SharpXapkLib.Exceptions;
 using SharpXapkLib.Utility;
+using System.IO;
+using System.Text;
 using XapkPackagingTool.Common.Data.Model.Xapk;
 using XapkPackagingTool.Common.Utility.ZipUtility;
 
@@ -16,6 +18,7 @@ namespace SharpXapkLib.Inserter
         private const string MANIFEST_FILE_NAME = "manifest.json";
 
         private readonly ZipInserter _zipInserter;
+        private readonly string _outputFile;
         private long totalSize;
         private long _totalTransferredBytes;
         private readonly XapkFileMap _fileMap;
@@ -33,6 +36,7 @@ namespace SharpXapkLib.Inserter
 
         internal XapkInserter(XapkFileMap xapkFileMap, string outputFilePath)
         {
+            _outputFile = outputFilePath;
             _fileMap =
                 xapkFileMap
                 ?? throw new PackagingResourcesNotSpecifiedException(
@@ -43,7 +47,7 @@ namespace SharpXapkLib.Inserter
                     "PackagingDirectoryNotSpecified".Localize()
                 );
             _zipInserter = new ZipInserter(outputFilePath);
-            _zipInserter.TransferredBytes += InserterTransferredBytes;
+             _zipInserter.TransferredBytes += InserterTransferredBytes;
         }
 
         private void InserterTransferredBytes(object? sender, int transferredBytes)
@@ -56,40 +60,54 @@ namespace SharpXapkLib.Inserter
         private static long CalculateBuildSize(XapkFileMap map)
         {
             IBuildSizeCalculator buildSizeCalculator = new BuildSizeCalculator(map);
-            long buildSize = buildSizeCalculator.GetTotalSize();
-            return buildSize;
+            return buildSizeCalculator.GetTotalSize();
         }
 
         internal void Insert()
         {
             try
             {
-                totalSize = CalculateBuildSize(_fileMap);
-
+                totalSize = CalculateTotalBuildSize();
                 OnInsertStarted();
 
-                var uncompressedFiles = _fileMap.Uncompressed;
-                if (uncompressedFiles != null && uncompressedFiles.Count > 0)
-                    InsertFiles(uncompressedFiles);
-
-                var compressedFiles = _fileMap.Compressed;
-                if (compressedFiles != null && compressedFiles.Count > 0)
-                    InsertCompressedFiles(compressedFiles);
+                InsertUncompressedFiles();
+                InsertCompressedFiles();
 
                 OnInsertCompleted();
             }
-            catch (Exception exc)
+            catch (Exception exc) when (IsCancelled)
             {
-                if (IsCancelled)
-                    throw new OperationCanceledException();
-                else
-                    throw exc;
+                throw new OperationCanceledException();
+            }
+            catch
+            {
+                throw;
             }
         }
 
+        private long CalculateTotalBuildSize()
+        {
+            return CalculateBuildSize(_fileMap);
+        }
+
+        private void InsertUncompressedFiles()
+        {
+            var uncompressedFiles = _fileMap.Uncompressed;
+            if (uncompressedFiles.Any())
+                InsertFiles(uncompressedFiles);
+        }
+
+        private void InsertCompressedFiles()
+        {
+            var compressedFiles = _fileMap.Compressed;
+            if (compressedFiles.Any())
+                InsertCompressedFiles(compressedFiles);
+        }
+
+
         internal void CancelInsert()
         {
-            this.IsCancelled = true;
+            IsCancelled = true;
             _zipInserter.IsCancelled = true;
         }
 
@@ -99,8 +117,14 @@ namespace SharpXapkLib.Inserter
             {
                 if (IsCancelled)
                     break;
-                _zipInserter.AddFileFromLocal(file.Source, file.Target);
+
+                InsertFile(file);
             }
+        }
+
+        private void InsertFile(XapkInsertMap file)
+        {
+            _zipInserter.AddFile(file.Source, file.Target);
         }
 
         internal void InsertCompressedFiles(List<CompressedFileGroup> compressedFiles)
@@ -109,18 +133,30 @@ namespace SharpXapkLib.Inserter
             {
                 if (IsCancelled)
                     break;
-                List<FileCopyInfo> copyInfos = file
-                    .Entries.Select(x => new FileCopyInfo(x.Source, x.Target))
-                    .ToList();
-                _zipInserter.AddFilesFromZip(file.CompressedFileName, copyInfos);
+
+                var copyInfos = CreateFileCopyInfoList(file);
+                InsertCompressedFile(file.CompressedFileName, copyInfos);
             }
+        }
+
+        private static List<FileCopyInfo> CreateFileCopyInfoList(CompressedFileGroup fileGroup)
+        {
+            return fileGroup
+                .Entries.Select(entry => new FileCopyInfo(entry.Source, entry.Target))
+                .ToList();
+        }
+
+        private void InsertCompressedFile(string compressedFileName, List<FileCopyInfo> copyInfos)
+        {
+            _zipInserter.AddFilesFromZip(compressedFileName, copyInfos);
         }
 
         public void InsertMetadata(XapkManifest manifest)
         {
             manifest.TotalSize = totalSize;
             var metadata = MetadataCreator.CreateMetadata(manifest);
-            _zipInserter.AddFile(MANIFEST_FILE_NAME, metadata);
+            using (Stream contentStream = new MemoryStream(Encoding.UTF8.GetBytes(metadata)))
+                _zipInserter.AppendToZip(MANIFEST_FILE_NAME, contentStream);
         }
 
         public void Apply()

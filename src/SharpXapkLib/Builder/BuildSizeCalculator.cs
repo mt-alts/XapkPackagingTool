@@ -18,55 +18,44 @@ namespace SharpXapkLib.Builder
             _map = xapkFileMap;
         }
 
-        private long GetFileSize(string file)
+        private static long GetFileSize(string file)
         {
-            if (File.Exists(file))
-            {
-                var fileInfo = new FileInfo(file);
-                return fileInfo.Length;
-            }
-            throw new FileNotFoundException(file);
+            if (!File.Exists(file))
+                throw new FileNotFoundException(file);
+            var fileInfo = new FileInfo(file);
+            return fileInfo.Length;
         }
 
-        private long GetCompressedFilesSize(string compressedFile, List<string> entry)
+        private static long GetCompressedFilesSize(string compressedFile, List<string> entry)
         {
             if (File.Exists(compressedFile))
                 return ZipEntrySizeCalculator.CalculateEntriesTotalSize(compressedFile, entry);
-            else
-                throw new FileNotFoundException(compressedFile);
+            throw new FileNotFoundException(compressedFile);
         }
 
-        private long CalculateUncompressedFiles()
+        private static long CalculateUncompressedFiles(
+            IEnumerable<Inserter.XapkInsertMap> uncompressedFiles
+        )
         {
-            long size = 0;
-            var uncompressedFiles = _map.Uncompressed;
-            if (uncompressedFiles != null && uncompressedFiles.Count > 0)
-                foreach (var uncompressedFile in uncompressedFiles)
-                    size += GetFileSize(uncompressedFile.Source);
-            return size;
+            return uncompressedFiles?.Sum(file => GetFileSize(file.Source)) ?? 0;
         }
 
-        private long CalculateCompressedFiles()
+        private static long CalculateCompressedFiles(
+            IEnumerable<CompressedFileGroup> compressedFiles
+        )
         {
-            long size = 0;
-            var compressedFiles = _map.Compressed;
-            if (compressedFiles != null && compressedFiles.Count > 0)
-            {
-                foreach (var compressedFile in compressedFiles)
-                {
-                    string f = compressedFile.CompressedFileName;
-                    size += GetCompressedFilesSize(
+            return compressedFiles?.Sum(compressedFile =>
+                    GetCompressedFilesSize(
                         compressedFile.CompressedFileName,
-                        compressedFile.Entries.Select(f => f.Source).ToList()
-                    );
-                }
-            }
-            return size;
+                        compressedFile.Entries.Select(entry => entry.Source).ToList()
+                    )
+                ) ?? 0;
         }
 
         public long GetTotalSize()
         {
-            return CalculateUncompressedFiles() + CalculateCompressedFiles();
+            return CalculateUncompressedFiles(_map.Uncompressed)
+                + CalculateCompressedFiles(_map.Compressed);
         }
     }
 }

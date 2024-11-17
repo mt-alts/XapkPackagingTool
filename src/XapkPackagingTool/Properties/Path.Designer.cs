@@ -25,7 +25,7 @@ namespace XapkPackagingTool.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Asset\\\\about\\\\external_components.json")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Asset\\about\\external_components.json")]
         public string AssetUsedComponentsJsonDataPath {
             get {
                 return ((string)(this["AssetUsedComponentsJsonDataPath"]));
@@ -79,19 +79,19 @@ namespace XapkPackagingTool.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Asset\\\\xapk\\\\blank_project_template.json")]
-        public string AssetBlankProjectTemplate {
+        [global::System.Configuration.DefaultSettingValueAttribute("Asset\\xapk\\blank_project_template.json")]
+        public string AssetBlankXapkConfigTemplate {
             get {
-                return ((string)(this["AssetBlankProjectTemplate"]));
+                return ((string)(this["AssetBlankXapkConfigTemplate"]));
             }
         }
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("XapkPackagingTool")]
-        public string AppDataDir {
+        [global::System.Configuration.DefaultSettingValueAttribute("AppData")]
+        public string AppDataDirectoryName {
             get {
-                return ((string)(this["AppDataDir"]));
+                return ((string)(this["AppDataDirectoryName"]));
             }
         }
         
@@ -101,6 +101,33 @@ namespace XapkPackagingTool.Properties {
         public string RecentsFile {
             get {
                 return ((string)(this["RecentsFile"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("XAPK Config Files")]
+        public string XapkConfigFilesDirectoryName {
+            get {
+                return ((string)(this["XapkConfigFilesDirectoryName"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("XAPK Packaging Tool")]
+        public string LocalAppDataDirectoryName {
+            get {
+                return ((string)(this["LocalAppDataDirectoryName"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("XAPK Packages")]
+        public string XapkPackagesDirectoryName {
+            get {
+                return ((string)(this["XapkPackagesDirectoryName"]));
             }
         }
     }

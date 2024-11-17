@@ -14,7 +14,7 @@ namespace XapkPackagingTool.Service
 {
     internal class ConfigService : IConfigService
     {
-        private readonly string ASSET_PATH = PathHelper.GetFullPath(Properties.Path.Default.AssetBlankProjectTemplate);
+        private readonly string ASSET_PATH = AssetPath.Xapk.BlankXapkConfigTemplate;
 
         private readonly IPackageReader _packageReader;
 
@@ -76,10 +76,29 @@ namespace XapkPackagingTool.Service
             if (string.IsNullOrWhiteSpace(filePath) || config == null)
                 return;
 
-            File.WriteAllText(
-                filePath,
-                Common.Utility.ObjectSerialization.JsonSerializer.Serialize<XapkConfig>(config)
-            );
+            try
+            {
+                string directory = Path.GetDirectoryName(filePath);
+                if (!string.IsNullOrEmpty(directory) && !Directory.Exists(directory))
+                {
+                    Directory.CreateDirectory(directory);
+                }
+
+                using (var fileStream = new FileStream(filePath, FileMode.Create, FileAccess.Write, FileShare.None))
+                using (var writer = new StreamWriter(fileStream))
+                {
+                    string json = Common.Utility.ObjectSerialization.JsonSerializer.Serialize<XapkConfig>(config);
+                    writer.Write(json);
+                }
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                throw new FileProcessingException(filePath, string.Format("StrAccessDeniedMessage".Localize(), filePath), ex);
+            }
+            catch (Exception ex)
+            {
+                throw new FileProcessingException(filePath, string.Format("StrFileSaveError".Localize(), filePath), ex);
+            }
         }
     }
 }

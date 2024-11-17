@@ -52,14 +52,18 @@ namespace XapkPackagingTool
             services.AddSingleton<IOpenFileService, OpenFileService>();
             services.AddSingleton<IConfirmDialogService, ConfirmDialogService>();
             services.AddSingleton<ISaveFileService, SaveFileService>();
+            services.AddSingleton<IFolderSelectionService, FolderSelectionService>();
             services.AddTransient<IViewModelHost, ViewModelHost>();
             services.AddSingleton<IWindowService, WindowService>();
             services.AddSingleton<IRecentManager, RecentManager>();
             services.AddSingleton<IProgressService, ProgressService>();
             services.AddSingleton<IPackageReader, PackageReader>();
+            services.AddSingleton<IMessageDialogService, MessageDialogService>();
+            services.AddSingleton<IConfigService, ConfigService>();
 
             services.AddScoped<IXapkConfigService, XapkConfigService>();
 
+            services.AddTransient<IVirtualFileSystem, VirtualFileSystem>();
             services.AddTransient<AboutViewModel>();
             services.AddTransient<PermissionsViewModel>();
             services.AddTransient<LocalesViewModel>();
@@ -69,19 +73,12 @@ namespace XapkPackagingTool
             services.AddTransient<SplitsApkViewModel>();
             services.AddTransient<PackageMetadataViewModel>();
             services.AddTransient<PackagingOptionsViewModel>();
-            services.AddTransient<PackageProgressViewModel>();
-            services.AddSingleton<IMessageDialogService, MessageDialogService>();
-
-            services.AddSingleton<IConfigService, ConfigService>();
-
-            services.AddTransient<IVirtualFileSystem, VirtualFileSystem>();
-
+            services.AddTransient<PackagingProgressViewModel>();
+            services.AddTransient<DocumentViewerVM>();
             services.AddTransient<NewPackageViewModel>();
             services.AddTransient<GettingStartedViewModel>();
-
             services.AddTransient<StartupViewModel>();
             services.AddTransient<MainViewModel>();
-
             services.AddTransient<MainWindow>();
             services.AddTransient<NewPackageWindow>();
         }

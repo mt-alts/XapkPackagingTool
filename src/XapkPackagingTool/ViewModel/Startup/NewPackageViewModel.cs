@@ -4,7 +4,9 @@
 */
 
 using System.IO;
+using System.Windows.Controls;
 using System.Windows.Input;
+using XapkPackagingTool.Common.Data.Model.Xapk;
 using XapkPackagingTool.Constants;
 using XapkPackagingTool.Helper;
 using XapkPackagingTool.Service;
@@ -18,15 +20,16 @@ namespace XapkPackagingTool.ViewModel.Startup
     internal class NewPackageViewModel : ViewModelBase
     {
         private string _configName;
-        private string _path;
+        private string _location;
         private string _packageName;
         private string _appName;
 
-        private readonly ISaveFileService _saveFileService;
+        private readonly IFolderSelectionService _folderService;
         private readonly IRecentManager _recentManager;
         private readonly IConfigService _configService;
         private readonly IXapkConfigService _dataService;
         private readonly IWindowService _windowService;
+        private readonly IMessageDialogService _messageService;
 
         public event EventHandler SwitchBackRequested;
 
@@ -50,13 +53,13 @@ namespace XapkPackagingTool.ViewModel.Startup
             }
         }
 
-        public string SavePath
+        public string SaveLocation
         {
-            get => _path;
+            get => _location;
             set
             {
-                _path = value;
-                OnPropertyChanged(nameof(SavePath));
+                _location = value;
+                OnPropertyChanged(nameof(SaveLocation));
                 OnPropertyChanged(nameof(CanCreatePackage));
             }
         }
@@ -83,17 +86,23 @@ namespace XapkPackagingTool.ViewModel.Startup
             IConfigService configService,
             IXapkConfigService xapkConfigService,
             IWindowService windowService,
-            ISaveFileService saveFileService
+            IFolderSelectionService folderSelectionService,
+            IMessageDialogService messageDialogService
         )
         {
             _recentManager = recentManager;
             _configService = configService;
             _dataService = xapkConfigService;
             _windowService = windowService;
-            _saveFileService = saveFileService;
+            _folderService = folderSelectionService;
+            _messageService = messageDialogService;
+
             BackCommand = new RelayCommand(BackCommandExecute);
             CreatePackageCommand = new RelayCommand(CreatePackageExecute);
             SelectLocationCommand = new RelayCommand(SelectLocationExecute);
+
+            var path = EnvironmentPaths.StoredXapkConfigFiles;
+            SaveLocation = EnvironmentPaths.StoredXapkConfigFiles;
         }
 
         private void BackCommandExecute()
@@ -105,24 +114,15 @@ namespace XapkPackagingTool.ViewModel.Startup
         {
             try
             {
-                if (ValidateNewPackage())
-                {
-                    var config = _configService.CreateNew();
-                    config.ConfigName = ConfigName;
-                    config.Manifest.PackageName = PackageName;
-                    config.Manifest.Name = AppName;
-                    config.BuildPath =
-                        $"{Path.Combine(Path.GetDirectoryName(SavePath), $"{PackageName}.xapk")}";
-                    config.BaseApk = string.Empty;
-                    _configService.ConfigPath = SavePath;
-                    _configService.Save(SavePath, config);
-                    _dataService.LoadConfig(config);
+                var savePath = GenerateConfigSavePath();
 
-                    _recentManager.AddRecentFile(SavePath);
+                if (!ValidateAndCreatePackage(savePath))
+                    return;
 
-                    _windowService.ShowWindow<MainViewModel>();
-                    _windowService.CloseWindow<StartupViewModel>();
-                }
+                var config = GenerateNewConfig();
+                SaveAndLoadConfig(config, savePath);
+
+                FinalizeCreationProcess();
             }
             catch (Exception exc)
             {
@@ -130,20 +130,109 @@ namespace XapkPackagingTool.ViewModel.Startup
             }
         }
 
+        private string GenerateConfigSavePath()
+        {
+            return Path.Combine(
+                SaveLocation,
+                FileNameHelper.CreateAvaliableFileName(ConfigName, FileExtensions.XAPK_CONFIG)
+            );
+        }
+
+        private bool ValidateAndCreatePackage(string savePath)
+        {
+            if (!ValidateNewPackage())
+                return false;
+
+            if (!IsConfigFileValid())
+            {
+                ShowWarningMessage(
+                    string.Format("StrFileAlreadyExistsWarning".Localize(), savePath),
+                    "StrAppName".Localize()
+                );
+                return false;
+            }
+            return true;
+        }
+
+        private XapkConfig GenerateNewConfig()
+        {
+            var config = CreateBaseConfig();
+            SetConfigPaths(config);
+            return config;
+        }
+
+        private XapkConfig CreateBaseConfig()
+        {
+            var config = _configService.CreateNew();
+            config.ConfigName = ConfigName;
+            config.Manifest.PackageName = PackageName;
+            config.Manifest.Name = AppName;
+            config.BaseApk = string.Empty;
+            return config;
+        }
+
+        private void SetConfigPaths(XapkConfig config)
+        {
+            config.BuildPath = GetUniqueBuildPath();
+        }
+
+        private string GetUniqueBuildPath()
+        {
+            return Common.Helpers.FileHelpers.FileNameHelper.GetUniqueFileName(
+                Path.Combine(
+                    EnvironmentPaths.StoredXapkPackages,
+                    FileNameHelper.CreateAvaliableFileName(ConfigName, FileExtensions.XAPK)
+                )
+            );
+        }
+
+        private void SaveAndLoadConfig(XapkConfig config, string savePath)
+        {
+            _configService.ConfigPath = savePath;
+            _configService.Save(savePath, config);
+            _dataService.LoadConfig(config);
+
+            _recentManager.AddRecentFile(savePath);
+        }
+
+        private void FinalizeCreationProcess()
+        {
+            _windowService.ShowWindow<MainViewModel>();
+            _windowService.CloseWindow<StartupViewModel>();
+        }
+
+        private bool IsConfigFileValid()
+        {
+            return !File.Exists(
+                Path.Combine(
+                    SaveLocation,
+                    FileNameHelper.CreateAvaliableFileName(ConfigName, FileExtensions.XAPK_CONFIG)
+                )
+            );
+        }
+
+        private void ShowWarningMessage(string message, string title)
+        {
+            _messageService.ShowWarning(message, title);
+        }
+
         private void SelectLocationExecute()
         {
-            var path = _saveFileService.OpenDialog(
-                "LabelConfigurationFileLocation".Localize(),
-                DialogFilters.XapkConfigFiles
+            var (isResult, path) = _folderService.OpenDialog(
+                "LabelConfigurationFileLocation".Localize()
             );
-            if (string.IsNullOrWhiteSpace(path))
+            if (!isResult)
                 return;
-            SavePath = path;
+            SaveLocation = path;
         }
 
         private bool ValidateNewPackage()
         {
-            return !(string.IsNullOrWhiteSpace(SavePath) || string.IsNullOrWhiteSpace(PackageName));
+            return !(
+                string.IsNullOrWhiteSpace(SaveLocation)
+                || string.IsNullOrWhiteSpace(ConfigName)
+                || string.IsNullOrWhiteSpace(PackageName)
+            );
         }
     }
 }

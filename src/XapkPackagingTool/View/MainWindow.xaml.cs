@@ -22,7 +22,13 @@ namespace XapkPackagingTool.View
 
         private void Window_Loaded(object sender, System.Windows.RoutedEventArgs e)
         {
+        }
 
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+
+            if (DataContext is MainViewModel dataContext && !dataContext.CheckForUnsavedChanges())
+                e.Cancel = true;
         }
     }
 }

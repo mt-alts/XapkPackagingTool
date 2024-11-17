@@ -13,42 +13,34 @@ namespace SharpXapkLib.Utility
         public static List<XapkInsertMap> GenerateFiles(XapkConfig config)
         {
             if (config == null)
-                throw new ArgumentNullException("config");
+                throw new ArgumentNullException(nameof(config));
+
             var entries = new List<XapkInsertMap>();
 
             if (!string.IsNullOrWhiteSpace(config.Manifest.Icon))
-            {
-                entries.Add(
-                    new XapkInsertMap(source: $"{config.Manifest.Icon}", target: "icon.png")
-                );
-            }
+                entries.Add(new XapkInsertMap(config.Manifest.Icon, "icon.png"));
 
-            if (config.Manifest.Expansions != null && config.Manifest.Expansions.Any())
-            {
+            if (config.Manifest.Expansions is List<Expansion> expansions && expansions.Any())
                 entries.AddRange(
-                    config
-                        .Manifest.Expansions.Select(expansion => new XapkInsertMap(
-                            source: $"{expansion.File}",
-                            target: $"{expansion.InstallPath}"
-                        ))
-                        .ToList()
+                    expansions.Select(expansion => new XapkInsertMap(
+                        source: expansion.File,
+                        target: expansion.InstallPath
+                    ))
                 );
-            }
 
-            if (config.Manifest.SplitApks != null && config.Manifest.SplitApks.Any())
-                config
-                    .Manifest.SplitApks.Select(splitApk => new XapkInsertMap(
-                        source: $"{splitApk.File}",
+            if (config.Manifest.SplitApks is List<SplitApk> splitApks && splitApks.Any())
+                entries.AddRange(
+                    splitApks.Select(splitApk => new XapkInsertMap(
+                        source: splitApk.File,
                         target: $"{splitApk.Id}.apk"
                     ))
-                    .ToList()
-                    .ForEach(entry => entries.Add(entry));
-            else if (!string.IsNullOrWhiteSpace(config.BaseApk))
-            {
+                );
+
+            if (!string.IsNullOrWhiteSpace(config.BaseApk))
                 entries.Add(
                     new XapkInsertMap(config.BaseApk, $"{config.Manifest.PackageName}.apk")
                 );
-            }
+
             return entries;
         }
     }

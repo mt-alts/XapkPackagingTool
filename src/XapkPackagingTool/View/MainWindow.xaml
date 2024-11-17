@@ -18,7 +18,8 @@
     NonClientAreaBackground="{DynamicResource SideMenuBackground}"
     Icon="{DynamicResource AppIcon}"
     ShowIcon="True"
-    mc:Ignorable="d">
+    mc:Ignorable="d"
+    Closing="Window_Closing">
     <Window.Resources>
         <Style BasedOn="{StaticResource BaseStyle}" TargetType="Window">
             <Setter Property="FontFamily" Value="Segoe UI" />
@@ -70,7 +71,7 @@
                     <MenuItem Header="{StaticResource LabelSave}" Command="{Binding SaveCommand}"/>
                     <MenuItem Header="{StaticResource LabelSaveAs}" Command="{Binding SaveAsCommand}" />
                     <MenuItem Header="{StaticResource LabelClose}" Command="{Binding CloseCommand}" />
-                    <MenuItem Header="{StaticResource LabelRecentFiles}" ItemsSource="{Binding RecentFiles}">
+                    <MenuItem Header="{StaticResource LabelRecentFiles}" ItemsSource="{Binding RecentFiles, UpdateSourceTrigger=PropertyChanged}">
                         <MenuItem.ItemContainerStyle>
                             <Style TargetType="MenuItem" BasedOn="{StaticResource MenuItem4FrameStyle}">
                                 <Setter Property="Header" Value="{Binding}" />

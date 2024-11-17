@@ -1,4 +1,4 @@
-﻿/* 
+﻿/*
    Copyright (c) 2024 Metin Altıkardeş
    Licensed under the MIT License. See the LICENSE.
 */
@@ -11,7 +11,8 @@ namespace XapkPackagingTool.Utility.Validators.XapkPackage
     {
         public static bool IsValid(XapkConfig xapkConfig)
         {
-            return ApkVariantValidator.IsValid(xapkConfig);
+            return ApkVariantValidator.IsValid(xapkConfig)
+                && MetadataValidator.IsValid(xapkConfig.Manifest);
         }
     }
 }

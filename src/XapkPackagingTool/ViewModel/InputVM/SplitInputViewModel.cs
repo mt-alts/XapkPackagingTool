@@ -147,15 +147,15 @@ namespace XapkPackagingTool.ViewModel.InputVM
             try
             {
                 _appBinaryInterfaces = LoadAssetData<List<string>>(
-                    Properties.Path.Default.AssetApplicationBinaryInterfaces,
+                    AssetPath.Xapk.PredefinedAppBinaryInterfaces,
                     "config."
                 );
                 _localeCodes = LoadAssetData<Dictionary<string, string>>(
-                    Properties.Path.Default.AssetLocales,
+                    AssetPath.Xapk.PredefinedLocaleCodes,
                     "config."
                 );
                 _densityQualifiers = LoadAssetData<List<string>>(
-                    Properties.Path.Default.AssetDensityQualifiers,
+                    AssetPath.Xapk.PredefinedDensityQualifiers,
                     "config."
                 );
             }
@@ -168,10 +168,10 @@ namespace XapkPackagingTool.ViewModel.InputVM
 
         private static List<string> LoadAssetData<T>(string path, string prefix)
         {
-            if (!File.Exists(Helper.PathHelper.GetFullPath(path)))
+            if (!File.Exists(path))
                 return new List<string>();
 
-            var data = AssetLoader<T>.LoadData(Helper.PathHelper.GetFullPath(path));
+            var data = AssetLoader<T>.LoadData(path);
             if (data is List<string> list)
                 return list.ConvertAll(item => $"{prefix}{item}");
             else if (data is Dictionary<string, string> dict)

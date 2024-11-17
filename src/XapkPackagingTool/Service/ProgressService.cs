@@ -79,16 +79,16 @@ namespace XapkPackagingTool.Service
 
         public void ReportFailure(string message, string title)
         {
+            _progressViewModel.Title = title;
             _progressViewModel.ProcessStatus = Enums.ProgressStatus.Failed;
             _progressViewModel.StatusMessage = message;
-            _progressViewModel.Title = title;
         }
 
         public void ReportCompletion(string message, string title)
         {
+            _progressViewModel.Title = title;
             _progressViewModel.ProcessStatus = Enums.ProgressStatus.Completed;
             _progressViewModel.StatusMessage = message;
-            _progressViewModel.Title = title;
 
             if (File.Exists(message))
                 _progressViewModel.CompletedPackagePath = message;

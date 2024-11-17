@@ -20,6 +20,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="../../../Resources/Templates/InvalidInputTemplate.xaml" />
             </ResourceDictionary.MergedDictionaries>
+            <SolidColorBrush x:Key="PrimaryBrush" Color="#3388D8" />
         </ResourceDictionary>
     </Page.Resources>
 
@@ -33,7 +34,14 @@
                 <hc:TextBox
                     Height="54"
                     hc:InfoElement.Necessary="True"
-                    hc:InfoElement.Title="{StaticResource LabelPackageName}"
+                    hc:InfoElement.Title="{DynamicResource LabelConfigName}"
+                    Text="{Binding ConfigName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    />
+                <hc:TextBox
+                    Height="54"
+                    Margin="0,10,0,0"
+                    hc:InfoElement.Necessary="True"
+                    hc:InfoElement.Title="{DynamicResource LabelPackageName}"
                     Style="{StaticResource TextBoxValidation}"
                     Validation.ErrorTemplate="{StaticResource ErrorTemplate}">
                     <TextBox.Text>
@@ -63,8 +71,8 @@
                         Grid.Column="0"
                         Margin="0,10,0,0"
                         hc:InfoElement.Necessary="True"
-                        hc:InfoElement.Title="{StaticResource LabelSavePath}"
-                        Text="{Binding SavePath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        hc:InfoElement.Title="{DynamicResource LabelSavePath}"
+                        Text="{Binding SaveLocation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                     <Button
                         Height="32"
                         Grid.Column="1"
@@ -80,14 +88,14 @@
                 Orientation="Horizontal">
                 <Button
                     Margin="0,0,5,0"
-                    Background="{StaticResource DefaultControlBackground}"
+                    Background="{DynamicResource DefaultControlBackground}"
                     Command="{Binding BackCommand}"
                     Content="Back" />
                 <Button
                     Background="{DynamicResource PrimaryControlBackground}"
                     Command="{Binding CreatePackageCommand}"
                     Content="Create"
-                    Foreground="{StaticResource PrimaryControlForeground}"
+                    Foreground="{DynamicResource PrimaryControlForeground}"
                     IsEnabled="{Binding CanCreatePackage, UpdateSourceTrigger=PropertyChanged}" />
             </StackPanel>
         </Grid>

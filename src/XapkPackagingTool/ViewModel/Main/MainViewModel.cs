@@ -33,7 +33,7 @@ namespace XapkPackagingTool.ViewModel.Main
         private readonly IRecentManager _recentManager;
         private readonly IDialogService _dialogService;
 
-        private readonly string _initialXapkConfigHash;
+        private string _savedXapkConfigHash;
 
         public ObservableCollection<string> RecentFiles
         {
@@ -84,8 +84,9 @@ namespace XapkPackagingTool.ViewModel.Main
             RegisterCommands();
             CreateViewModels();
             VMHost.SwitchViewModelCommand.Execute("metadata");
+            _recentManager.RecentFilesChanged += (sender, e) => { OnPropertyChanged(nameof(RecentFiles)); };
 
-            _initialXapkConfigHash = _xapkConfigService.GetConfigHashCode();
+            _savedXapkConfigHash = _xapkConfigService.GetConfigHashCode();
         }
 
         private void RegisterCommands()
@@ -102,6 +103,16 @@ namespace XapkPackagingTool.ViewModel.Main
             OpenRecentCommand = new RelayCommand<int>(OpenRecentExecute);
         }
 
+        private void CreateViewModels()
+        {
+            VMHost.AddViewModel<PackagingOptionsViewModel>(MainViewNavigationKeys.PACKAGE);
+            VMHost.AddViewModel<PackageMetadataViewModel>(MainViewNavigationKeys.METADATA);
+            VMHost.AddViewModel<PermissionsViewModel>(MainViewNavigationKeys.PERMISSIONS);
+            VMHost.AddViewModel<LocalesViewModel>(MainViewNavigationKeys.LOCALES);
+            VMHost.AddViewModel<ExpansionsViewModel>(MainViewNavigationKeys.EXPANSIONS);
+            VMHost.AddViewModel<ApkVariantsViewModel>(MainViewNavigationKeys.APK_VARIANTS);
+        }
+
         private void OpenRecentExecute(int index)
         {
             try
@@ -111,6 +122,7 @@ namespace XapkPackagingTool.ViewModel.Main
                 );
 
                 OpenConfig(config, filePath);
+                _savedXapkConfigHash = _xapkConfigService.GetConfigHashCode();
             }
             catch (Exception exc)
             {
@@ -140,78 +152,224 @@ namespace XapkPackagingTool.ViewModel.Main
 
         private void SaveExecute()
         {
-            SaveChanges();
+            try
+            {
+                SaveChanges();
+            }
+            catch (Exception exc)
+            {
+                ExceptionHandler.HandleException(exc);
+            }
         }
 
         private void SaveAsExecute()
         {
-            SaveAsNewConfig();
+            try
+            {
+                SaveAsNewConfig();
+            }
+            catch (Exception exc)
+            {
+                ExceptionHandler.HandleException(exc);
+            }
         }
 
         private void OpenPackageExecute()
         {
-            var path = _openFileService.OpenDialog(
+            try
+            {
+                var path = _openFileService.OpenDialog(
                 "StrOpenPackage".Localize(),
                 DialogFilters.PackageFiles
             );
-            if (string.IsNullOrWhiteSpace(path))
-                return;
+                if (string.IsNullOrWhiteSpace(path))
+                    return;
 
-            var config = OpenPackage(path);
-            OpenConfig(config, path);
+                var config = OpenPackage(path);
+                OpenConfig(config, path);
+                _savedXapkConfigHash = _xapkConfigService.GetConfigHashCode();
+                _recentManager.AddRecentFile(path);
+            }
+            catch (Exception exc)
+            {
+                ExceptionHandler.HandleException(exc);
+            }
         }
 
         private void OpenConfigExecute()
         {
-            var path = _openFileService.OpenDialog(
+            try
+            {
+                var path = _openFileService.OpenDialog(
                 "StrOpenXapkConfig".Localize(),
                 DialogFilters.XapkConfigFiles
             );
-            if (string.IsNullOrWhiteSpace(path))
-                return;
+                if (string.IsNullOrWhiteSpace(path))
+                    return;
 
-            var config = OpenXapkConfigFile(path);
-            OpenConfig(config, path);
+                var config = OpenXapkConfigFile(path);
+                OpenConfig(config, path);
+                _savedXapkConfigHash = _xapkConfigService.GetConfigHashCode();
+                _recentManager.AddRecentFile(path);
+            }
+            catch (Exception exc)
+            {
+                ExceptionHandler.HandleException (exc);
+            }
         }
 
-        private void CreateViewModels()
+        private void NewPackageExecute()
         {
-            VMHost.AddViewModel<PackagingOptionsViewModel>(MainViewNavigationKeys.PACKAGE);
-            VMHost.AddViewModel<PackageMetadataViewModel>(MainViewNavigationKeys.METADATA);
-            VMHost.AddViewModel<PermissionsViewModel>(MainViewNavigationKeys.PERMISSIONS);
-            VMHost.AddViewModel<LocalesViewModel>(MainViewNavigationKeys.LOCALES);
-            VMHost.AddViewModel<ExpansionsViewModel>(MainViewNavigationKeys.EXPANSIONS);
-            VMHost.AddViewModel<ApkVariantsViewModel>(MainViewNavigationKeys.APK_VARIANTS);
+            _windowService.ShowWindow<NewPackageViewModel>();
+        }
+
+        public bool CheckForUnsavedChanges()
+        {
+            string latestXapkConfigHash = _xapkConfigService.GetConfigHashCode();
+
+            if (HasUnsavedChanges(latestXapkConfigHash))
+                return true;
+            var result = string.IsNullOrWhiteSpace(_configService.ConfigPath)
+                ? _confirmDialogService.ShowWithCancel(
+                    "LabelUnsavedConfigurationPrompt".Localize(),
+                    "LabelAskToSaveChanges".Localize()
+                )
+                : _confirmDialogService.ShowWithCancel(
+                    "LabelUnsavedChangesPrompt".Localize(),
+                    "LabelAskToSaveChanges".Localize()
+                );
+
+            return HandleSaveConfirmResult(result);
+        }
+
+        private bool HasUnsavedChanges(string latestXapkConfigHash)
+        {
+            return _savedXapkConfigHash.Equals(latestXapkConfigHash);
+        }
+
+        private bool SaveChanges()
+        {
+            string savePath = GetSavePath(_configService.ConfigPath);
+            if (string.IsNullOrWhiteSpace(savePath))
+                return SaveAsNewConfig();
+
+            _configService.Save(savePath, _xapkConfigService.GetConfig());
+            _savedXapkConfigHash = _xapkConfigService.GetConfigHashCode();
+            return true;
+        }
+
+        private bool SaveAsNewConfig()
+        {
+            string savePath = GetSavePath();
+            if (string.IsNullOrWhiteSpace(savePath))
+                return false;
+
+            _configService.Save(savePath, _xapkConfigService.GetConfig());
+            return true;
+        }
+
+        private string GetSavePath(string existingPath = null)
+        {
+            if (!string.IsNullOrWhiteSpace(existingPath))
+                return existingPath;
+
+            string savePath = _saveFileService.OpenDialog(
+                "LabelSave".Localize(),
+                Constants.DialogFilters.XapkConfigFiles
+            );
+
+            if (!string.IsNullOrWhiteSpace(savePath))
+                _recentManager.AddRecentFile(savePath);
+
+            return savePath;
+        }
+
+        private bool HandleSaveConfirmResult(SaveConfirmResult result)
+        {
+            switch (result)
+            {
+                case SaveConfirmResult.Yes:
+                    return SaveChanges();
+
+                case SaveConfirmResult.No:
+                    return true;
+
+                case SaveConfirmResult.Cancel:
+                default:
+                    return false;
+            }
+        }
+
+        private XapkConfig OpenXapkConfigFile(string filePath)
+        {
+            var config = _configService.LoadFromDisk(filePath);
+            _configService.ConfigPath = filePath;
+            return config;
+        }
+
+        private void OpenConfig(XapkConfig config, string path)
+        {
+            _recentManager.AddRecentFile(path);
+            OpenConfig(config);
+        }
+
+        private void OpenConfig(XapkConfig config)
+        {
+            _xapkConfigService.LoadConfig(config);
+        }
+
+        private XapkConfig OpenPackage(string packagePath)
+        {
+            var config = _configService.ImportFromPackage(packagePath);
+            _configService.ConfigPath = string.Empty;
+            return config;
         }
 
         private void BuildCommandExecute()
         {
             try
             {
-                if (BuildValidator.IsValid(_xapkConfigService.GetConfig()))
+                if (SaveChanges())
                 {
                     var config = _xapkConfigService.GetConfig();
-                    var xapkBuilder = new XapkPackageBuilder(config);
-                    _progressService.CancelRequired += (sender, e) =>
-                    {
-                        xapkBuilder.CancelBuild();
-                    };
 
-                    InitBuilderEvents(xapkBuilder);
+                    if (!IsValidConfig(config))
+                        return;
 
-                    var _builderThread = new Thread(() =>
-                    {
-                        xapkBuilder.Build();
-                    });
+                    if (File.Exists(config.BuildPath) && !ConfirmOverwrite())
+                        return;
 
-                    _builderThread.Start();
-                    _progressService.ShowProgress();
+                    StartBuildProcess(config);
                 }
             }
             catch (Exception exc)
             {
                 ExceptionHandler.HandleException(exc);
             }
+        }
+
+        private bool IsValidConfig(XapkConfig config)
+        {
+            return BuildValidator.IsValid(config);
+        }
+
+        private bool ConfirmOverwrite()
+        {
+            return _confirmDialogService.Show("FileAlreadyExistsOverwritePrompt".Localize());
+        }
+
+        private void StartBuildProcess(XapkConfig config)
+        {
+            var xapkBuilder = new XapkPackageBuilder(config);
+
+            _progressService.CancelRequired += (sender, e) => xapkBuilder.CancelBuild();
+
+            InitBuilderEvents(xapkBuilder);
+
+            var builderThread = new Thread(() => xapkBuilder.Build());
+            builderThread.Start();
+
+            _progressService.ShowProgress();
         }
 
         private void InitBuilderEvents(XapkPackageBuilder xapkPackageBuilder)
@@ -260,99 +418,6 @@ namespace XapkPackagingTool.ViewModel.Main
                 "LabelPreparingResources".Localize(),
                 "LabelPackaging".Localize()
             );
-        }
-
-        private void NewPackageExecute()
-        {
-            _windowService.ShowWindow<NewPackageViewModel>();
-        }
-
-        private bool CheckForUnsavedChanges()
-        {
-            string latestXapkConfigHash = _xapkConfigService.GetConfigHashCode();
-
-            if (HasUnsavedChanges(latestXapkConfigHash))
-                return true;
-            var result = string.IsNullOrWhiteSpace(_configService.ConfigPath)
-                ? _confirmDialogService.ShowWithCancel(
-                    "LabelUnsavedConfigurationPrompt".Localize(),
-                    "LabelAskToSaveChanges".Localize()
-                )
-                : _confirmDialogService.ShowWithCancel(
-                    "LabelUnsavedChangesPrompt".Localize(),
-                    "LabelAskToSaveChanges".Localize()
-                );
-
-            return HandleSaveConfirmResult(result);
-        }
-
-        private bool HasUnsavedChanges(string latestXapkConfigHash)
-        {
-            return _initialXapkConfigHash.Equals(latestXapkConfigHash);
-        }
-
-        private bool SaveChanges()
-        {
-            if (string.IsNullOrWhiteSpace(_configService.ConfigPath))
-                return SaveAsNewConfig();
-            else
-                _configService.SaveChanges(_xapkConfigService.GetConfig());
-
-            return true;
-        }
-
-        private bool SaveAsNewConfig()
-        {
-            string savePath = _saveFileService.OpenDialog("LabelSave".Localize(), Constants.DialogFilters.XapkConfigFiles);
-
-            if (string.IsNullOrWhiteSpace(savePath))
-                return false;
-
-            _configService.Save(savePath, _xapkConfigService.GetConfig());
-            _configService.ConfigPath = savePath;
-
-            return true;
-        }
-
-        private bool HandleSaveConfirmResult(SaveConfirmResult result)
-        {
-            switch (result)
-            {
-                case SaveConfirmResult.Yes:
-                    return SaveChanges();
-
-                case SaveConfirmResult.No:
-                    return true;
-
-                case SaveConfirmResult.Cancel:
-                default:
-                    return false;
-            }
-        }
-
-        private XapkConfig OpenXapkConfigFile(string filePath)
-        {
-            var config = _configService.LoadFromDisk(filePath);
-            _configService.ConfigPath = filePath;
-            return config;
-        }
-
-        private void OpenConfig(XapkConfig config, string path)
-        {
-            _recentManager.AddRecentFile(path);
-            OpenConfig(config);
-        }
-
-        private void OpenConfig(XapkConfig config)
-        {
-            _xapkConfigService.LoadConfig(config);
-        }
-
-        private XapkConfig OpenPackage(string packagePath)
-        {
-            var config = _configService.ImportFromPackage(packagePath);
-            _configService.ConfigPath = string.Empty;
-            return config;
         }
     }
 }

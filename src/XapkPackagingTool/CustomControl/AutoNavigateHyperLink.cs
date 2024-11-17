@@ -3,17 +3,19 @@
    Licensed under the MIT License. See the LICENSE.
 */
 
+using HandyControl.Tools;
+using Microsoft.Extensions.DependencyInjection;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Documents;
 using XapkPackagingTool.Helper;
+using XapkPackagingTool.Service;
+using XapkPackagingTool.ViewModel;
 
 namespace XapkPackagingTool.CustomControl
 {
     class AutoNavigateHyperLink : Hyperlink
     {
-        private const string LOCAL_WEB_PAGE_VIEWER = "mshta.exe";
-
         public AutoNavigateHyperLink()
         {
             this.RequestNavigate += AutoNavigateHyperLink_RequestNavigate;
@@ -27,25 +29,31 @@ namespace XapkPackagingTool.CustomControl
             try
             {
                 var uri = e.Uri.ToString();
-                var isHttp = uri.StartsWith("http");
+                var isUrl = uri.IsUrl();
 
-                var pinfo = new ProcessStartInfo
+                if (isUrl)
                 {
-                    UseShellExecute = false,
-                    FileName = isHttp ? e.Uri.AbsoluteUri : LOCAL_WEB_PAGE_VIEWER,
-                    Arguments = isHttp ? null : PathHelper.GetFullPath(uri)
-                };
+                    Process.Start(new ProcessStartInfo
+                    {
+                        UseShellExecute = true,
+                        FileName = e.Uri.AbsoluteUri,
+                    });
+                }
+                else
+                {
+                    var _dialogService = App.ServiceProvider.GetRequiredService<IDialogService>();
+                    _dialogService.ShowDialogWithoutResult<DocumentViewerVM>(EnvironmentPaths.GetBaseDirectoryFilePath(uri));
+                }
 
-                Process.Start(pinfo);
                 e.Handled = true;
             }
             catch (Exception ex)
             {
                 MessageBox.Show(
-                    messageBoxText: $"Error opening link: {ex.Message}",
+                    messageBoxText: $"Error opening uri: {ex.Message}",
                     caption: "Error",
                     button: MessageBoxButton.OK,
-                    icon: MessageBoxImage.Asterisk
+                    icon: MessageBoxImage.Warning
                 );
             }
         }

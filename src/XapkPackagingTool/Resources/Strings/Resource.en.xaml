@@ -7,11 +7,11 @@
 
     <!--#region Code Behind-->
     <!--  Access Denied  -->
-    <system:String x:Key="StrAccessDeniedMessage">You do not have permission to access {0}.</system:String>
+    <system:String x:Key="StrAccessDeniedMessage">You do not have permission to access '{0}'.</system:String>
     <system:String x:Key="StrAccessDeniedTitle">Access Denied!</system:String>
 
     <!--  Asset  -->
-    <system:String x:Key="StrAssetLoadFailed">The asset could not be loaded: {0}. Please reinstall the XAPK Packaging Tool to ensure it works correctly.</system:String>
+    <system:String x:Key="StrAssetLoadFailed">The asset could not be loaded: '{0}'. Please reinstall the XAPK Packaging Tool to ensure it works correctly.</system:String>
 
     <!--  APK  -->
     <system:String x:Key="StrApk">apk</system:String>
@@ -32,12 +32,13 @@
 
     <!--  Error  -->
     <system:String x:Key="StrError">Error</system:String>
+    <system:String x:Key="StrFileSaveError">An error occurred while saving the file: '{0}'</system:String>
     <system:String x:Key="StrUnsupportedFileFormat">File format '{0}' is not supported.</system:String>
     <system:String x:Key="StrExtNotSupported">The file extension '{0}' is not supported.</system:String>
 
     <!--  File Not Found  -->
     <system:String x:Key="StrFileNotFoundMessageTitle">File Not Found!</system:String>
-    <system:String x:Key="StrFileNotFoundMessage">The specified file could not be found: {0}.</system:String>
+    <system:String x:Key="StrFileNotFoundMessage">The specified file could not be found: '{0}'</system:String>
     <system:String x:Key="StrBaseApkNotFound">APK file not found! Please add a full APK or a split base APK.</system:String>
     <system:String x:Key="StrBaseSplitApkNotFound">Split base APK file (base.apk) not defined! Please add the split base APK.</system:String>
 
@@ -47,14 +48,14 @@
 
     <!--  Import Error  -->
     <system:String x:Key="StrImportErrorMessageTitle">Import Error</system:String>
-    <system:String x:Key="StrPackageImportErrorMessage">An error occurred while importing the package. File path: {0}</system:String>
+    <system:String x:Key="StrPackageImportErrorMessage">An error occurred while importing the package: '{0}'</system:String>
 
     <!--  No Items to Delete  -->
     <system:String x:Key="StrNoItemsToDelete">No items to delete.</system:String>
 
     <!--  Config File Error  -->
     <system:String x:Key="StrConfigFileErrorMessageTitle">Config File Read Error</system:String>
-    <system:String x:Key="StrXapkConfigFileReadErrorMessage">Failed to read XAPK configuration file. File path: {0}</system:String>
+    <system:String x:Key="StrXapkConfigFileReadErrorMessage">Failed to read XAPK configuration file: '{0}'</system:String>
 
     <!--  Open Package  -->
     <system:String x:Key="StrOpenPackage">Open Package</system:String>
@@ -68,6 +69,9 @@
 
     <!--  Warning  -->
     <system:String x:Key="StrWarning">Warning</system:String>
+    <system:String x:Key="StrMetadataValidationError">Metadata validation failed. Please ensure all required fields are properly filled.</system:String>
+    <system:String x:Key="StrFileAlreadyExistsWarning">A file with the same name already exists at the specified location: '{0}'. Please choose a different name.</system:String>
+    <system:String x:Key="FileAlreadyExistsOverwritePrompt">A file with the same name already exists at the target location. Do you want to overwrite it?</system:String>
     <system:String x:Key="StrLocalizedAppNamesNotDefined">Localized application names are not defined in this package.</system:String>
     <system:String x:Key="StrAppPermissionsNotContained">This package does not contain application permissions.</system:String>
     <system:String x:Key="StrSplitApkNotContained">This package does not contain a split APK.</system:String>
@@ -117,7 +121,8 @@
     <system:String x:Key="LabelConfiguration">Config</system:String>
     <system:String x:Key="LabelGettingStarted">Getting Started</system:String>
     <system:String x:Key="LabelConfigurationFileLocation">Configuration File Location</system:String>
-    
+    <system:String x:Key="LabelConfigName">Configuration Name</system:String>
+
     <system:String x:Key="LabelPackaging">Packaging...</system:String>
     <system:String x:Key="LabelPreparingResources">Preparing resources...</system:String>
     <system:String x:Key="LabelPackagingFailed">Packaging Failed!</system:String>
@@ -168,7 +173,7 @@
 
     <!--#region About-->
     <system:String x:Key="LabelProductName">XAPK Packaging Tool</system:String>
-    <system:String x:Key="LabelExternalComponents">External Components</system:String>
+    <system:String x:Key="LabelThirdPartyComponents">Third-party Components</system:String>
     <system:String x:Key="LabelCopyrightText">Copyright © Metin Altıkardeş, all rights reserved.</system:String>
     <system:String x:Key="LabelVisitWebsite">Visit Website</system:String>
     <system:String x:Key="LabelLicense">License</system:String>

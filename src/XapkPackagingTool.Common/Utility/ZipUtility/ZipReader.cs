@@ -35,7 +35,7 @@ namespace XapkPackagingTool.Common.Utility.ZipUtility
         public Stream ReadAsStream(string entryName)
         {
             var entry = GetZipArchiveEntry(entryName);
-            return entry.Open(); // Açılan stream'i çağıran tarafa bırakır.
+            return entry.Open(); 
         }
 
         private ZipArchiveEntry GetZipArchiveEntry(string entryName)
@@ -56,54 +56,7 @@ namespace XapkPackagingTool.Common.Utility.ZipUtility
         public void Dispose()
         {
             _zipArchive?.Dispose();
-            _fileStream?.Dispose(); // FileStream'i kapatmayı unutmayın.
+            _fileStream?.Dispose();
         }
-
-        //private readonly ZipFile _zipFile;
-
-        //public ZipReader ( string zipFilePath )
-        //{
-        //    if ( string.IsNullOrWhiteSpace ( zipFilePath ) )
-        //        throw new ArgumentNullException ( nameof ( zipFilePath ) );
-
-        //    var fileStream = File.OpenRead(zipFilePath);
-        //    _zipFile = new ZipFile ( fileStream );
-        //}
-
-        //public string ReadAsString ( string entryName )
-        //{
-        //    var entry = GetZipEntry(entryName);
-        //    using ( var stream = _zipFile.GetInputStream ( entry ) )
-        //    using ( var reader = new StreamReader ( stream ) )
-        //    {
-        //        return reader.ReadToEnd ( );
-        //    }
-        //}
-
-        //public Stream ReadAsStream ( string entryName )
-        //{
-        //    var entry = GetZipEntry(entryName);
-        //    return _zipFile.GetInputStream ( entry );
-        //}
-
-        //private ZipEntry GetZipEntry ( string entryName )
-        //{
-        //    var entry = _zipFile.GetEntry(entryName);
-        //    if ( entry != null )
-        //        return entry;
-
-        //    throw new FileNotFoundException ( $"{entryName} not found in {_zipFile.Name}!" );
-        //}
-
-        //public bool EntryExist ( string entryName )
-        //{
-        //    var entry = _zipFile.GetEntry(entryName);
-        //    return entry != null;
-        //}
-
-        //public void Dispose ( )
-        //{
-        //    _zipFile?.Close ( );
-        //}
     }
 }

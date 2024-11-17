@@ -1,5 +1,5 @@
 ﻿<!--  Copyright (c) 2024 Metin Altıkardeş. Licensed under the MIT License. See the LICENSE.  -->
-    
+
 <hc:Window
     x:Class="XapkPackagingTool.View.NewPackageWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -9,19 +9,20 @@
     xmlns:local="clr-namespace:XapkPackagingTool.View"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:validators="clr-namespace:XapkPackagingTool.Utility.Validators.TextInput"
+    Title="{DynamicResource LabelCreateNewPackage}"
     Width="600"
     Height="450"
     Background="{DynamicResource DialogBackground}"
+    Icon="{DynamicResource AppIcon}"
     NonClientAreaBackground="{DynamicResource DialogBackground}"
     NonClientAreaHeight="45"
-    Title="{DynamicResource LabelCreateNewPackage}"
-    Icon="{DynamicResource AppIcon}"
     mc:Ignorable="d">
     <hc:Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="../Resources/Templates/InvalidInputTemplate.xaml" />
             </ResourceDictionary.MergedDictionaries>
+            <SolidColorBrush x:Key="PrimaryBrush" Color="#3388D8" />
             <Style BasedOn="{StaticResource BaseStyle}" TargetType="Window">
                 <Setter Property="FontFamily" Value="Segoe UI" />
             </Style>
@@ -37,7 +38,12 @@
                 <StackPanel Grid.Row="0" Orientation="Vertical">
                     <hc:TextBox
                         Height="54"
-                        Margin="0,0,0,10"
+                        hc:InfoElement.Necessary="True"
+                        hc:InfoElement.Title="{DynamicResource LabelConfigName}"
+                        Text="{Binding ConfigName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    <hc:TextBox
+                        Height="54"
+                        Margin="0,10,0,10"
                         hc:InfoElement.Necessary="True"
                         hc:InfoElement.Title="{DynamicResource LabelPackageName}"
                         Background="#FEFFFF"
@@ -70,9 +76,9 @@
                             Grid.Column="0"
                             Height="54"
                             hc:InfoElement.Necessary="True"
-                            hc:InfoElement.Title="{StaticResource LabelSavePath}"
+                            hc:InfoElement.Title="{DynamicResource LabelSavePath}"
                             Background="#FEFFFF"
-                            Text="{Binding SavePath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                            Text="{Binding SaveLocation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                         <Button
                             Grid.Column="1"
                             Height="34"

@@ -12,18 +12,16 @@ namespace AaptCommandApi
     public class Aapt2 : IAapt2
     {
         private static readonly string CMD_DUMP_BADGING = "dump badging {0}";
-        private static readonly string AAPT2 =
+        private static readonly string AAPT2EXE =
             $"{Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "aapt2.exe")}";
 
         private readonly ITerminal terminal;
 
         public Aapt2()
         {
-            if (!File.Exists(AAPT2))
-                throw new FileNotFoundException(AAPT2);
-            this.terminal = new Terminal(
-                Path.Combine(AppDomain.CurrentDomain.BaseDirectory, AAPT2)
-            );
+            if (!File.Exists(AAPT2EXE))
+                throw new FileNotFoundException(AAPT2EXE);
+            this.terminal = new Terminal(AAPT2EXE);
         }
 
         public Aapt2(string aapt2exe)

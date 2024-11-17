@@ -74,19 +74,27 @@ namespace XapkPackagingTool.Service
 
         private Window CreateWindow(Type viewModelType)
         {
-            if (!_mappings.ContainsKey(viewModelType))
-                throw new ArgumentException($"No window mapped for {viewModelType.FullName}");
+            try
+            {
+                if (!_mappings.ContainsKey(viewModelType))
+                    throw new ArgumentException($"No window mapped for {viewModelType.FullName}");
 
-            var windowType = _mappings[viewModelType];
-            var window = (Window)Activator.CreateInstance(windowType);
+                var windowType = _mappings[viewModelType];
+                var window = (Window)Activator.CreateInstance(windowType);
 
-            var viewModel = _serviceProvider.GetRequiredService(viewModelType) as ViewModelBase;
+                var viewModel = (ViewModelBase)App.ServiceProvider.GetRequiredService(viewModelType);
 
-            if (viewModel == null)
-                throw new InvalidOperationException($"ViewModel of type {viewModelType.FullName} could not be resolved.");
+                if (viewModel == null)
+                    throw new InvalidOperationException($"ViewModel of type {viewModelType.FullName} could not be resolved.");
 
-            window.DataContext = viewModel;
-            return window;
+                window.DataContext = viewModel;
+                return window;
+            }
+            catch (Exception exc)
+            {
+
+                throw exc;
+            }
         }
     }
 }

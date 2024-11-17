@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="AssetUsedComponentsJsonDataPath" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Asset\\about\\external_components.json</Value>
+      <Value Profile="(Default)">Asset\about\external_components.json</Value>
     </Setting>
     <Setting Name="AssetExpansionInstallLocations" Type="System.String" Scope="Application">
       <Value Profile="(Default)">Asset\xapk\install_locations.json</Value>
@@ -20,14 +20,23 @@
     <Setting Name="AssetDensityQualifiers" Type="System.String" Scope="Application">
       <Value Profile="(Default)">Asset\xapk\density_qualifiers.json</Value>
     </Setting>
-    <Setting Name="AssetBlankProjectTemplate" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Asset\\xapk\\blank_project_template.json</Value>
+    <Setting Name="AssetBlankXapkConfigTemplate" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Asset\xapk\blank_project_template.json</Value>
     </Setting>
-    <Setting Name="AppDataDir" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">XapkPackagingTool</Value>
+    <Setting Name="AppDataDirectoryName" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">AppData</Value>
     </Setting>
     <Setting Name="RecentsFile" Type="System.String" Scope="Application">
       <Value Profile="(Default)">recent_files.json</Value>
+    </Setting>
+    <Setting Name="XapkConfigFilesDirectoryName" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">XAPK Config Files</Value>
+    </Setting>
+    <Setting Name="LocalAppDataDirectoryName" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">XAPK Packaging Tool</Value>
+    </Setting>
+    <Setting Name="XapkPackagesDirectoryName" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">XAPK Packages</Value>
     </Setting>
   </Settings>
 </SettingsFile>

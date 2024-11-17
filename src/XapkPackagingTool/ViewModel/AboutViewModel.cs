@@ -15,9 +15,7 @@ namespace XapkPackagingTool.ViewModel
     {
         public event Action RequestClose;
 
-        private static readonly string ASSET_PATH = PathHelper.GetFullPath(
-            Properties.Path.Default.AssetUsedComponentsJsonDataPath
-        );
+        private static readonly string ASSET_PATH = AssetPath.About.ExternalComponents;
 
         public string App { get; }
 

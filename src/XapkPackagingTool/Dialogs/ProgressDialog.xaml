@@ -9,7 +9,7 @@
     xmlns:hc="https://handyorg.github.io/handycontrol"
     xmlns:local="clr-namespace:XapkPackagingTool.Dialogs"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    Title="{DynamicResource LabelPackaging}"
+    Title="{Binding Title, UpdateSourceTrigger=PropertyChanged}"
     Width="500"
     MaxWidth="500"
     Background="{DynamicResource DialogBackground}"

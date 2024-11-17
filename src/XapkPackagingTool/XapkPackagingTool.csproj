@@ -1,23 +1,24 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <OutputType>WinExe</OutputType>
-    <TargetFramework>net8.0-windows7.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <UseWPF>true</UseWPF>
-    <SignAssembly>false</SignAssembly>
-    <PackAsTool>True</PackAsTool>
-    <Configurations>Debug;Release;Mix</Configurations>
-    <Platforms>AnyCPU;x64</Platforms>
-    <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
-    <StartupObject>XapkPackagingTool.App</StartupObject>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <UseWindowsForms>False</UseWindowsForms>
-    <ApplicationManifest>app.manifest</ApplicationManifest>
-  </PropertyGroup>
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<TargetFramework>net8.0-windows7.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<UseWPF>true</UseWPF>
+		<SignAssembly>false</SignAssembly>
+		<PackAsTool>True</PackAsTool>
+		<Configurations>Debug;Release;Mix</Configurations>
+		<Platforms>AnyCPU;x64</Platforms>
+		<GeneratePackageOnBuild>False</GeneratePackageOnBuild>
+		<StartupObject>XapkPackagingTool.App</StartupObject>
+		<PlatformTarget>AnyCPU</PlatformTarget>
+		<UseWindowsForms>False</UseWindowsForms>
+		<ApplicationManifest>app.manifest</ApplicationManifest>
+	</PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DebugType>full</DebugType>
   </PropertyGroup>
 
@@ -60,7 +61,13 @@
     <None Remove="Asset\xapk\install_locations.json" />
     <None Remove="Asset\xapk\locale_codes.json" />
     <None Remove="Asset\xapk\permissions.json" />
-    <None Remove="Licenses\copyright.ico" />
+    <None Remove="Licenses\AAPT2.txt" />
+    <None Remove="Licenses\HandyControl.txt" />
+    <None Remove="Licenses\Microsoft.Extensions.DependencyInjection.Abstractions.txt" />
+    <None Remove="Licenses\Microsoft.Extensions.DependencyInjection.txt" />
+    <None Remove="Licenses\Newtonsoft.Json.txt" />
+    <None Remove="Licenses\SharpZipLib.txt" />
+    <None Remove="Licenses\XapkPackagingTool.txt" />
   </ItemGroup>
 
   <ItemGroup>
@@ -90,7 +97,25 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <CustomToolNamespace>Asset</CustomToolNamespace>
     </Content>
-    <Content Include="Licenses\copyright.ico">
+    <Content Include="Licenses\AAPT2.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Licenses\HandyControl.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Licenses\Microsoft.Extensions.DependencyInjection.Abstractions.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Licenses\Microsoft.Extensions.DependencyInjection.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Licenses\Newtonsoft.Json.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Licenses\SharpZipLib.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Licenses\XapkPackagingTool.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
@@ -139,30 +164,9 @@
     <None Update="App.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Licenses\SharpZipLib.html">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Licenses\XapkPackagingTool.html">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Update="Properties\Path.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Path.Designer.cs</LastGenOutput>
-    </None>
-    <None Update="Licenses\AAPT2.html">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Licenses\HandyControl.html">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Licenses\Microsoft.Extensions.DependencyInjection.Abstractions.html">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Licenses\Microsoft.Extensions.DependencyInjection.html">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Licenses\Newtonsoft.Json.html">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

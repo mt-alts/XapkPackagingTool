@@ -43,12 +43,12 @@
                             Text="{Binding App}" />
                         <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
                             <TextBlock>
-                                <cc:AutoNavigateHyperLink NavigateUri="https://www.github.com/mt-alts/XAPK-Packaging-Tool">
+                                <cc:AutoNavigateHyperLink NavigateUri="https://www.github.com/mt-alts/XapkPackagingTool">
                                     <TextBlock Text="{StaticResource LabelVisitWebsite}" />
                                 </cc:AutoNavigateHyperLink>
                             </TextBlock>
                             <TextBlock Margin="15,0,0,0">
-                                <cc:AutoNavigateHyperLink NavigateUri="Licences\XapkPackagingTool.txt">
+                                <cc:AutoNavigateHyperLink NavigateUri="Licenses\XapkPackagingTool.txt">
                                     <TextBlock Text="{StaticResource LabelLicense}" />
                                 </cc:AutoNavigateHyperLink>
                             </TextBlock>
@@ -67,7 +67,7 @@
                         Text="{StaticResource LabelCopyrightText}" />
                 </Grid>
             </hc:TabItem>
-            <hc:TabItem Header="{StaticResource LabelExternalComponents}">
+            <hc:TabItem Header="{StaticResource LabelThirdPartyComponents}">
                 <Grid>
                     <ListBox ItemsSource="{Binding UsedLibraries, UpdateSourceTrigger=PropertyChanged}">
                         <ListBox.ItemTemplate>

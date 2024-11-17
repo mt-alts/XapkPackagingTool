@@ -16,9 +16,7 @@ namespace XapkPackagingTool.ViewModel.InputVM
 {
     internal class ExpansionInputViewModel : InputViewModelBase
     {
-        private static readonly string ASSET_PATH = PathHelper.GetFullPath(
-            Properties.Path.Default.AssetExpansionInstallLocations
-        );
+        private static readonly string ASSET_PATH = AssetPath.Xapk.PredefinedExpansionInstallLocations;
 
         private string _file;
         private string _installPath;

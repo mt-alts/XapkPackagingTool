@@ -14,9 +14,7 @@ namespace XapkPackagingTool.ViewModel.InputVM
 {
     internal class PermissionInputViewModel : SelectableItemsDialogViewModel<string>
     {
-        private readonly string ASSET_PATH = PathHelper.GetFullPath(
-            Properties.Path.Default.AssetPredefinedPermissions
-        );
+        private readonly string ASSET_PATH = AssetPath.Xapk.PredefinedPermissions;
 
         private readonly IMessageDialogService _messageDialogService;
 

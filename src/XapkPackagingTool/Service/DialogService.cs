@@ -23,7 +23,8 @@ namespace XapkPackagingTool.Service
         { typeof(PermissionInputViewModel), typeof(PermissionInputDialog) },
         { typeof(SplitInputViewModel), typeof(SplitApkInputDialog) },
         { typeof(AndroidFileSystemSimulationViewModel), typeof(DroidDirectorySelectionDialog) },
-        { typeof(AboutViewModel), typeof(AboutDialog) }
+        { typeof(AboutViewModel), typeof(AboutDialog) },
+        { typeof(DocumentViewerVM), typeof(DocumentViewerDialog) }
     };
 
         public (bool IsSuccess, object Result) ShowDialog<TViewModel>(object dataContext = null)
@@ -47,6 +48,17 @@ namespace XapkPackagingTool.Service
         public void ShowDialogWithoutResult<TViewModel>()
         {
             var viewModel = CreateViewModel<TViewModel>();
+            var dialog = CreateDialog(typeof(TViewModel));
+            dialog.DataContext = viewModel;
+
+            ConfigureDialog(dialog);
+            dialog.ShowDialog();
+            ResetDialogOwnerOpacity(dialog);
+        }
+
+        public void ShowDialogWithoutResult<TViewModel>(object dataContext)
+        {
+            var viewModel = (ViewModelBase)Activator.CreateInstance(typeof(TViewModel), dataContext);
             var dialog = CreateDialog(typeof(TViewModel));
             dialog.DataContext = viewModel;
 
@@ -97,6 +109,9 @@ namespace XapkPackagingTool.Service
     {
         public (bool IsSuccess, object Result) ShowDialog<TViewModel>(object dataContext = null)
             where TViewModel : IResultable;
+
         public void ShowDialogWithoutResult<TViewModel>();
+
+        public void ShowDialogWithoutResult<TViewModel>(object dataContext);
     }
 }
