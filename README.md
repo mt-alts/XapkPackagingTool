@@ -11,3 +11,9 @@ The **XAPK Packaging Tool** simplifies the packaging, management and distributio
 ## Who Is It For?
 
 Ideal for Android developers and advanced users aiming to streamline app packaging and distribution.
+
+## Installation
+
+[Microsoft Store Version](https://www.microsoft.com/store/productId/9P43P8LHSXRS?ocid=pdpshare)
+
+[Portable Version (.NET 8 runtime is required)](https://github.com/mt-alts/XapkPackagingTool/releases/download/1.0.0/XapkPackagingTool-1.0.0-portable-x64.zip)
