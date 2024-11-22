@@ -28,18 +28,25 @@ namespace SharpXapkLib.Utility
                     ))
                 );
 
-            if (config.Manifest.SplitApks is List<SplitApk> splitApks && splitApks.Any())
-                entries.AddRange(
-                    splitApks.Select(splitApk => new XapkInsertMap(
-                        source: splitApk.File,
-                        target: $"{splitApk.Id}.apk"
-                    ))
-                );
-
-            if (!string.IsNullOrWhiteSpace(config.BaseApk))
-                entries.Add(
-                    new XapkInsertMap(config.BaseApk, $"{config.Manifest.PackageName}.apk")
-                );
+            if (
+                config.VariantSpecies == XapkPackagingTool.Common.Data.Enums.ApkVariantSpecies.SPLIT
+            )
+            {
+                if (config.Manifest.SplitApks is List<SplitApk> splitApks && splitApks.Any())
+                    entries.AddRange(
+                        splitApks.Select(splitApk => new XapkInsertMap(
+                            source: splitApk.File,
+                            target: $"{splitApk.Id}.apk"
+                        ))
+                    );
+            }
+            else
+            {
+                if (!string.IsNullOrWhiteSpace(config.BaseApk))
+                    entries.Add(
+                        new XapkInsertMap(config.BaseApk, $"{config.Manifest.PackageName}.apk")
+                    );
+            }
 
             return entries;
         }

@@ -14,7 +14,7 @@ namespace SharpXapkLib.Utility
         {
             try
             {
-                return ManifestHandler.SerializeManifest(xapkManifest.DeepClone());
+                return ManifestHandler.SerializeManifest(xapkManifest);
             }
             catch (Exception exc)
             {

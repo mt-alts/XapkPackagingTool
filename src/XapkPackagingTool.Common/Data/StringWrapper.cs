@@ -8,7 +8,7 @@ using XapkPackagingTool.Common.Data.Equality;
 
 namespace XapkPackagingTool.Common.Data
 {
-    public class StringWrapper : INotifyPropertyChanged, ICustomEquality<StringWrapper>
+    public class StringWrapper : INotifyPropertyChanged, ICloneable, ICustomEquality<StringWrapper>
     {
         private string _content;
         public string Content
@@ -38,6 +38,11 @@ namespace XapkPackagingTool.Common.Data
             if (other != null)
                 return Content.Equals(other.Content);
             return false;
+        }
+
+        public object Clone()
+        {
+            return this.MemberwiseClone();
         }
     }
 }

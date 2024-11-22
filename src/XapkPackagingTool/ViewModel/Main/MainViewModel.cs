@@ -166,7 +166,7 @@ namespace XapkPackagingTool.ViewModel.Main
         {
             try
             {
-                SaveAsNewConfig();
+                SaveAsNewConfig(false);
             }
             catch (Exception exc)
             {
@@ -251,21 +251,27 @@ namespace XapkPackagingTool.ViewModel.Main
         {
             string savePath = GetSavePath(_configService.ConfigPath);
             if (string.IsNullOrWhiteSpace(savePath))
-                return SaveAsNewConfig();
+                return SaveAsNewConfig(true);
 
-            _configService.Save(savePath, _xapkConfigService.GetConfig());
-            _savedXapkConfigHash = _xapkConfigService.GetConfigHashCode();
+            SaveConfig(savePath);
             return true;
         }
 
-        private bool SaveAsNewConfig()
+        private bool SaveAsNewConfig(bool setPrimaryConfigPath)
         {
             string savePath = GetSavePath();
             if (string.IsNullOrWhiteSpace(savePath))
                 return false;
 
-            _configService.Save(savePath, _xapkConfigService.GetConfig());
+            SaveConfig(savePath, setPrimaryConfigPath);
             return true;
+        }
+
+        private void SaveConfig(string path, bool updateHash = true)
+        {
+            _configService.Save(path, _xapkConfigService.GetConfig());
+            if (updateHash)
+                _savedXapkConfigHash = _xapkConfigService.GetConfigHashCode();
         }
 
         private string GetSavePath(string existingPath = null)
@@ -283,6 +289,7 @@ namespace XapkPackagingTool.ViewModel.Main
 
             return savePath;
         }
+
 
         private bool HandleSaveConfirmResult(SaveConfirmResult result)
         {
@@ -339,7 +346,7 @@ namespace XapkPackagingTool.ViewModel.Main
                     if (File.Exists(config.BuildPath) && !ConfirmOverwrite())
                         return;
 
-                    StartBuildProcess(config);
+                    StartBuildProcess(config.DeepClone());
                 }
             }
             catch (Exception exc)

@@ -7,7 +7,7 @@ using XapkPackagingTool.Common.Data.Model.Xapk.Interfaces;
 
 namespace XapkPackagingTool.Common.Data.Model.Xapk
 {
-    public class Locale : ILocale, ICustomEquality<Locale>
+    public class Locale : ILocale, ICloneable, ICustomEquality<Locale>
     {
         public string? LanguageCode { get; set; }
         public string? Name { get; set; }
@@ -17,6 +17,11 @@ namespace XapkPackagingTool.Common.Data.Model.Xapk
             if (other != null)
                 return LanguageCode.Equals(other.LanguageCode);
             return false;
+        }
+
+        public object Clone()
+        {
+            return this.MemberwiseClone();
         }
     }
 }

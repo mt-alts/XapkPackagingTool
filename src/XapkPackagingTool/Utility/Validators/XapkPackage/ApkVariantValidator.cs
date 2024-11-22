@@ -21,7 +21,7 @@ namespace XapkPackagingTool.Utility.Validators.XapkPackage
             {
                 return true;
             }
-            else if (string.IsNullOrWhiteSpace(xapkConfig.BaseApk) && xapkConfig.Manifest.SplitConfigs?.Count > 0)
+            else if (xapkConfig.Manifest.SplitConfigs?.Count > 0)
             {
                 if (xapkConfig.Manifest.SplitConfigs.Contains("base"))
                     return true;

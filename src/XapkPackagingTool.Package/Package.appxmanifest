@@ -10,7 +10,7 @@
   <Identity
     Name="670.mtalts.XAPKPackagingTool"
     Publisher="CN=mtalt"
-    Version="1.0.0.0" />
+    Version="1.0.1.0" />
 
   <Properties>
     <DisplayName>XAPK Packaging Tool</DisplayName>

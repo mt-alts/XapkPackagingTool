@@ -62,19 +62,12 @@ namespace XapkPackagingTool.Common.Data.Model.Xapk
         public XapkManifest DeepClone()
         {
             var clone = (XapkManifest)Clone();
-            if (this.SplitApks != null && SplitApks.Count > 0)
-            {
-                clone.SplitApks = new List<SplitApk>(this.SplitApks.Count);
-                foreach (SplitApk splitApk in this.SplitApks)
-                    clone.SplitApks.Add((SplitApk)splitApk.Clone());
-            }
 
-            if (this.Expansions != null && Expansions.Count > 0)
-            {
-                clone.Expansions = new List<Expansion>(Expansions.Count);
-                foreach (var expansion in Expansions)
-                    clone.Expansions.Add((Expansion)expansion.Clone());
-            }
+            clone.Permissions = this.Permissions?.Select(permission => (StringWrapper)permission.Clone()).ToList();
+            clone.Locales = this.Locales?.Select(locale => (Locale)locale.Clone()).ToList();
+            clone.SplitApks = this.SplitApks?.Select(splitApk => (SplitApk)splitApk.Clone()).ToList();
+            clone.SplitConfigs = this.SplitConfigs?.ToList();
+            clone.Expansions = this.Expansions?.Select(expansion => (Expansion)expansion.Clone()).ToList();
 
             return clone;
         }

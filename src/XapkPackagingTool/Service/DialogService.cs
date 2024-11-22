@@ -14,8 +14,14 @@ using Window = System.Windows.Window;
 
 namespace XapkPackagingTool.Service
 {
+    /// <summary>
+    /// A service for managing dialogs in a WPF application.
+    /// </summary>
     internal sealed class DialogService : IDialogService
     {
+        /// <summary>
+        /// A dictionary mapping ViewModel types to their corresponding dialog Window types.
+        /// </summary>
         private static readonly Dictionary<Type, Type> _dialogs = new Dictionary<Type, Type>
     {
         { typeof(ExpansionInputViewModel), typeof(ExpansionInputDialog) },
@@ -27,6 +33,12 @@ namespace XapkPackagingTool.Service
         { typeof(DocumentViewerVM), typeof(DocumentViewerDialog) }
     };
 
+        /// <summary>
+        /// Displays a dialog bound to the specified ViewModel and returns the result.
+        /// </summary>
+        /// <typeparam name="TViewModel">The ViewModel type associated with the dialog.</typeparam>
+        /// <param name="dataContext">Optional data context for initializing the ViewModel.</param>
+        /// <returns>A tuple indicating success and the result from the ViewModel.</returns>
         public (bool IsSuccess, object Result) ShowDialog<TViewModel>(object dataContext = null)
             where TViewModel : IResultable
         {
@@ -45,6 +57,10 @@ namespace XapkPackagingTool.Service
             return (dialogResult, dialogResult ? viewModel.Result : null);
         }
 
+        /// <summary>
+        /// Displays a dialog without returning a result, using the specified ViewModel.
+        /// </summary>
+        /// <typeparam name="TViewModel">The ViewModel type associated with the dialog.</typeparam>
         public void ShowDialogWithoutResult<TViewModel>()
         {
             var viewModel = CreateViewModel<TViewModel>();
@@ -56,6 +72,11 @@ namespace XapkPackagingTool.Service
             ResetDialogOwnerOpacity(dialog);
         }
 
+        /// <summary>
+        /// Displays a dialog without returning a result, using a data context to initialize the ViewModel.
+        /// </summary>
+        /// <typeparam name="TViewModel">The ViewModel type associated with the dialog.</typeparam>
+        /// <param name="dataContext">The data context for initializing the ViewModel.</param>
         public void ShowDialogWithoutResult<TViewModel>(object dataContext)
         {
             var viewModel = (ViewModelBase)Activator.CreateInstance(typeof(TViewModel), dataContext);
@@ -67,12 +88,18 @@ namespace XapkPackagingTool.Service
             ResetDialogOwnerOpacity(dialog);
         }
 
+        /// <summary>
+        /// Creates an instance of the ViewModel.
+        /// </summary>
         private static ViewModelBase CreateViewModel<TViewModel>()
         {
             var viewModelType = typeof(TViewModel);
             return (ViewModelBase)Activator.CreateInstance(viewModelType);
         }
 
+        /// <summary>
+        /// Creates an instance of the ViewModel with the specified data context.
+        /// </summary>
         private static IResultable CreateViewModel<TViewModel>(object dataContext)
             where TViewModel : IResultable
         {
@@ -81,6 +108,9 @@ namespace XapkPackagingTool.Service
                 : (IResultable)Activator.CreateInstance(typeof(TViewModel));
         }
 
+        /// <summary>
+        /// Creates a dialog instance associated with the given ViewModel type.
+        /// </summary>
         private static Window CreateDialog(Type viewModelType)
         {
             if (!_dialogs.TryGetValue(viewModelType, out var dialogType))
@@ -89,6 +119,9 @@ namespace XapkPackagingTool.Service
             return (Window)Activator.CreateInstance(dialogType);
         }
 
+        /// <summary>
+        /// Configures the dialog window settings, such as owner and startup location.
+        /// </summary>
         private static void ConfigureDialog(Window dialog)
         {
             var owner = WindowHelper.GetActiveWindow();
@@ -97,12 +130,16 @@ namespace XapkPackagingTool.Service
             dialog.WindowStartupLocation = WindowStartupLocation.CenterOwner;
         }
 
+        /// <summary>
+        /// Resets the owner's opacity to its original value after the dialog is closed.
+        /// </summary>
         private static void ResetDialogOwnerOpacity(Window dialog)
         {
             if (dialog.Owner != null)
                 dialog.Owner.Opacity = 1;
         }
     }
+
 
 
     internal interface IDialogService

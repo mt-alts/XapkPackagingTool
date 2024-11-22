@@ -19,23 +19,23 @@
 
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DebugType>full</DebugType>
+    <DebugType>portable</DebugType>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <DebugType>full</DebugType>
+    <DebugType>portable</DebugType>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DebugType>full</DebugType>
+    <DebugType>none</DebugType>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <DebugType>full</DebugType>
+    <DebugType>none</DebugType>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Mix|AnyCPU'">
-    <DebugType>full</DebugType>
+    <DebugType>portable</DebugType>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Mix|x64'">
@@ -43,8 +43,8 @@
   </PropertyGroup>
   
   <PropertyGroup>
-	<AssemblyVersion>1.0.0.0</AssemblyVersion>
-	<FileVersion>1.0.0.0</FileVersion>
+	<AssemblyVersion>1.0.1.0</AssemblyVersion>
+	<FileVersion>1.0.1.0</FileVersion>
 	<Copyright>Metin Altıkardeş</Copyright>
 	<Product>XAPK Packaging Tool</Product>
 	<PackageId>XAPK Packaging Tool</PackageId>

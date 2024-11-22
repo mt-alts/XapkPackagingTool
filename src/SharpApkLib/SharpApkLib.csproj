@@ -1,12 +1,43 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFramework>net8.0-windows</TargetFramework>
+		<TargetFramework>net8.0-windows7.0</TargetFramework>
 		<Nullable>enable</Nullable>
 		<UseWPF>true</UseWPF>
 		<ImplicitUsings>enable</ImplicitUsings>
+		<SignAssembly>False</SignAssembly>
 		<Configurations>Debug;Release;Mix</Configurations>
 		<Platforms>AnyCPU;x64</Platforms>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+		<GenerateAssemblyInfo>True</GenerateAssemblyInfo>
+	  <DebugType>portable</DebugType>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+		<GenerateAssemblyInfo>True</GenerateAssemblyInfo>
+	  <DebugType>portable</DebugType>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+		<GenerateAssemblyInfo>True</GenerateAssemblyInfo>
+	  <DebugType>none</DebugType>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+		<GenerateAssemblyInfo>True</GenerateAssemblyInfo>
+	  <DebugType>none</DebugType>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Mix|AnyCPU'">
+		<GenerateAssemblyInfo>True</GenerateAssemblyInfo>
+	  <DebugType>portable</DebugType>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Mix|x64'">
+		<GenerateAssemblyInfo>True</GenerateAssemblyInfo>
+	  <DebugType>portable</DebugType>
 	</PropertyGroup>
 
   <ItemGroup>
