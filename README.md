@@ -16,4 +16,4 @@ Ideal for Android developers and advanced users aiming to streamline app packagi
 
 [Microsoft Store Version](https://www.microsoft.com/store/productId/9P43P8LHSXRS?ocid=pdpshare)
 
-[Portable Version (.NET 8 runtime is required)](https://github.com/mt-alts/XapkPackagingTool/releases/download/1.0.0/XapkPackagingTool-1.0.0-portable-x64.zip)
+[Portable Version (.NET 8 runtime is required)](https://github.com/mt-alts/XapkPackagingTool/releases/download/1.0.1/XapkPackagingTool-1.0.1-portable-x64.zip)
